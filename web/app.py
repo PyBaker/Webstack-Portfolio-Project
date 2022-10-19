@@ -4,11 +4,13 @@ Defines routes of the project
 from processpass import encryptpass 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from tables import RegisteredVoters
+from tables import RegisteredVoters, Post, Aspirants
 from flask import Flask, request, render_template
 
 # connects to database
-str1 = 'mysql://root:''@localhost:3306/VOTEAPP'  # Holds database info
+username = 'rod'
+password = 'r'
+str1 = f'mysql://{username}:{password}@localhost:3306/VOTEAPP'  # Holds database info
 engine = create_engine(str1)
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
@@ -52,15 +54,17 @@ def register_user():
     Handles registration of users
     """
     if request.method == "POST":
-        firstname = request.form.get("first_name")
-        middlename = request.form.get("middle_name")
-        lastname = request.form.get("last_name")
-        location = request.form.get("location")
+        idno = request.form.get("id_no")
+        firstname = request.form.get("first_name").upper()
+        middlename = request.form.get("middle_name").upper()
+        lastname = request.form.get("last_name").upper()
+        location = request.form.get("location").upper()
         password = request.form.get("password")
         email = request.form.get("email")
 
         # Writing to the database
         User = RegisteredVoters()
+        User.id_no = idno
         User.First_Name = firstname
         User.Middle_Name = middlename
         User.Last_Name = lastname
@@ -73,23 +77,60 @@ def register_user():
         session.commit()
         return "You have Successfully Registred"
 
-    return render_template('form.html')
+    return render_template('registration_page.html')
 
 
-@app.route('/register-aspirants')
+@app.route('/register-aspirants', methods=['GET', 'POST'])
 def register_aspirants():
     """
     Handles registration of Aspirants
     """
-    return "I want to register aspirants"
+    if request.method == "POST":
+        idno = request.form.get("idno")
+        postname = request.form.get("post_name").upper()
+        firstname = request.form.get("first_name").upper()
+        middlename = request.form.get("middle_name").upper()
+        lastname = request.form.get("last_name").upper()
+        location = request.form.get("location").upper()
+        password = request.form.get("password")
+        email = request.form.get("email")
+
+        # Writing to the database
+        Aspirant = Aspirants()
+        Aspirant.id_no = idno
+        Aspirant.Post_Name = postname
+        Aspirant.First_Name = firstname
+        Aspirant.Middle_Name = middlename
+        Aspirant.Last_Name = lastname
+        Aspirant.Location = location
+        Aspirant.Password = encryptpass(password)
+        Aspirant.Email = email
+        
+        # Commiting to the database
+        session.add(Aspirant)
+        session.commit()
+
+        return "You have successfully registered aspirant"
+    return render_template('aspirant.html')
 
 
-@app.route('/register-post')
+@app.route('/register-post', methods=['GET', 'POST'])
 def register_post():
     """
     Handles registration of Posts
     """
-    return "I want to register posts"
+    if request.method == 'POST':
+        postname = request.form.get("post_name").upper()
+
+        #Writing to the database
+        post = Post(Post_Name=postname)
+
+        #Comitting to database
+        session.add(post)
+        session.commit()
+        return "You have successfully registered the post"
+
+    return render_template('post.html')
 
 
 if __name__ == "__main__":
