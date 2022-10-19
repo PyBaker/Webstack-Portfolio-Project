@@ -5,9 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=, initial-scale=1.0">
     <title>E-Vote</title>
-    <link rel="shortcut icon" type="image/ico" href="./evote.png"/>
-    <link rel="stylesheet" href="{{ url_for('static', filename='./styles.css') }}">
-    <script src="{{ url_for('static',filename='main.js') }}"></script>
+        
+      
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
@@ -56,38 +55,44 @@
                                         <div class="form-outline mb-4">
 <form action="{{ url_for("register_user")}}" method="post">
                                             <input type="text" id="firstname"
-                                                class="form-control form-control-lg"/>
+                                                class="form-control form-control-lg"
+                                                placeholder="enter details..."/>
                                             <label class="form-label" for="firstname">
                                                 first name
                                             </label>
 
                                             <input type="text" id="middlename"
-                                                class="form-control form-control-lg"/>
+                                                class="form-control form-control-lg"
+                                                placeholder="enter details..."/>
                                             <label class="form-label" for="middlename">
                                                 middle name
                                             </label>
 
 
                                             <input type="text" id="lastname"
-                                                class="form-control form-control-lg"/>
+                                                class="form-control form-control-lg"
+                                                placeholder="enter details..."/>
                                             <label class="form-label" for="lastname">
                                                 last name
                                             </label>
 
                                             <input type="text" id="location"
-                                                class="form-control form-control-lg"/>
+                                                class="form-control form-control-lg"
+                                                placeholder="enter details..."/>
                                             <label class="form-label" for="location">
                                                 location
                                             </label>
 
                                             <input type="text" id="password"
-                                                class="form-control form-control-lg"/>
+                                                class="form-control form-control-lg"
+                                                placeholder="enter details..."/>
                                             <label class="form-label" for="password">
                                                 password
                                             </label>
 
                                             <input type="text" id="cpassword"
-                                                class="form-control form-control-lg"/>
+                                                class="form-control form-control-lg"
+                                                placeholder="enter details..."/>
                                             <label class="form-label" for="cpassword">
                                                 confirm password
                                             </label>
@@ -95,7 +100,7 @@
 
                                             <input type="email" class="form-control form-control-lg" 
                                             id="email" aria-describedby="emailhelp" 
-                                            placeholder="enter email">
+                                            placeholder="enter email...">
                                             <label class="form-label" for="email">
                                                 email
                                             </label>
@@ -104,19 +109,19 @@
                                               <label class="form-check-label" for="examplecheck1">i agree with the terms</label>
                                             </div>
                                             <div class="row">
-                                            <button type="submit" class=" col-4 mb-1 mt-3 btn btn-primary btn-lg float-end">register</button>
+                                                <div class="col-12">
+                                            <button type="submit" class="col-4 mb-1 mt-3 btn btn-primary btn-lg float-end">register</button>
+                                            </div>
                                             </div>
                                         </form>
                                         
                                         
 
 
-                                        </div>
 
-</form>
 
-                                    <div class="row mt-2">
-                                        <div class="mt-5  mb-4">
+                                    <div class="row">
+                                        <div class="mt-1  mb-3">
                                             <h6 class=" text-uppercase"></h6>
                                             <!-- Gradient divider -->
                                             <hr data-content="AND" class="hr-text">
