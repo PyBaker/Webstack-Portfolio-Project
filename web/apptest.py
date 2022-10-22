@@ -137,6 +137,32 @@ def register_post():
 
     return render_template('post.html')
 
+### TEST
+
+@app.route('/vote_gov', methods=['GET', 'POST'])
+def voter_guy():
+    """
+    handles registration of aspirants
+    """
+    voter_name = ""
+    if request.method == "POST":
+        voter_name = request.form["uo"]
+
+        voter_name2 = request.form.get("uo")
+
+        print("Nice vote")
+        print(voter_name)
+
+        return render_template('login_page.html')
+    print("you have successfully registered aspirant")
+    return render_template('vote_governor.html')
+
+
+### HONA
+ 
+
+
+
 
 if __name__ == "__main__":
     app.run(port=5000)
