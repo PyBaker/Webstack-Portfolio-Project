@@ -40,7 +40,6 @@ def home():
     """
     Holds the landing Page
     """
-    # return "This is the landng page"
     # Redirecting home to login_page
     return redirect('/login')
 

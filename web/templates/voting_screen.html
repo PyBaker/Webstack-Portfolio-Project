@@ -70,7 +70,7 @@
 
                                                     <a class="row m-1 btn btn-dark 
                                                     btn-lg w-50" id="governor" value="governor"
-                                                        href="vote_governor.html">Governor</a>
+                                                        href="{{ url_for('next_vote',next_vote_seat=value) }}">Governor</a>
                                                 </div>
                                                 <div class="btn-group">
                                                     <a class="row m-1 btn btn-dark 
@@ -84,10 +84,9 @@
                                                 </div>
                                                 <div class="btn-group">
                                                     <a class="row m-1 btn btn-dark 
-                                                    btn-lg w-50" id="mp" value="mp" href="vote_mp.html">MP
-                                                    </a>
-
-                                                    <a class="row m-1 btn btn-dark 
+                                                    btn-lg w-50" id="mp" value="mp"
+                                                        href="{{ url_for('next_vote',next_vote_seat='mp') }}">MP
+                                                    </a> <a class="row m-1 btn btn-dark 
                                                     btn-lg w-50" id="mca" value="mca" href="vote_mca.html">MCA</a>
                                                 </div>
                                             </div>
