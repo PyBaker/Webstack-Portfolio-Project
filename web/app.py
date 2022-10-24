@@ -115,7 +115,7 @@ def register_aspirants():
         session.commit()
 
         return "You have successfully registered aspirant"
-    return render_template('aspirant.html')
+    return render_template('registration_page_aspirant.html')
 
 
 @app.route('/register-post', methods=['GET', 'POST'])
@@ -135,6 +135,49 @@ def register_post():
         return "You have successfully registered the post"
 
     return render_template('post.html')
+
+
+@app.route('/select_asp', methods=['POST', 'GET'])
+def select_asp():
+    """
+    Takes you to aspirant voting page
+    """
+    if request.method == 'POST':
+        asp = list(request.form)[0]
+        page_to_load = 'vote_' + asp +'.html'
+        # print(page_to_load)
+        return render_template(page_to_load)
+    return render_template('voting_screen.html')
+
+
+@app.route('/vote', methods=['POST', 'GET'])
+def sent_vote():
+    """
+    handles the voting choices
+    """
+    print(request.form)
+    if request.method == 'POST':
+        if request.form:
+            choice = request.form['uo']
+            print(f"voter submitted Candidate no {choice}")
+            return render_template('voting_screen.html')
+    return redirect(request.referrer)
+
+
+@app.route('/admin_panel')
+def admin_panel():
+    """
+    Takes you to admin panel
+    """
+    return render_template('admin_panel.html')
+
+
+@app.route('/voting_screen')
+def voting_screen():
+    """
+    Takes you to voting screen
+    """
+    return render_template('voting_screen.html')
 
 
 if __name__ == "__main__":
