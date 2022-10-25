@@ -16,6 +16,7 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 app = Flask(__name__)
 
+
 # allow both GET and POST requests
 @app.route('/form-example', methods=['GET', 'POST'])
 def form_example():
@@ -31,11 +32,10 @@ def form_example():
                   <div><label>Framework: <input type="text" name="framework"></label></div>
                   <input type="submit" value="Submit">
               </form>'''
+
+
 @app.route('/')
 @app.route('/home')
-
-
-
 def home():
     """
     Holds the landing Page
@@ -44,11 +44,23 @@ def home():
     return redirect('/login')
 
 
-@app.route('/login')
+@app.route('/login', methods=['POST'])
 def login():
     """
     Handles user authentification into the system
     """
+    if request.method == 'POST':
+        login_password = request.form.get('password')
+        login_userid = request.form.get('user_id')
+
+        # Check if admin
+        #
+        # Take to admin panel
+        #
+        #  Check if user in Database
+        #
+        # Take to voting_screen if casted votes are less that 6
+ 
     return render_template('login_page.html')
 
 
@@ -126,10 +138,10 @@ def register_post():
     if request.method == 'POST':
         postname = request.form.get("post_name").upper()
 
-        #Writing to the database
+        # Writing to the database
         post = Post(Post_Name=postname)
 
-        #Comitting to database
+        # Comitting to database
         session.add(post)
         session.commit()
         return "You have successfully registered the post"
@@ -144,7 +156,7 @@ def select_asp():
     """
     if request.method == 'POST':
         asp = list(request.form)[0]
-        page_to_load = 'vote_' + asp +'.html'
+        page_to_load = 'vote_' + asp + '.html'
         # print(page_to_load)
         return render_template(page_to_load)
     return render_template('voting_screen.html')
@@ -178,6 +190,14 @@ def voting_screen():
     Takes you to voting screen
     """
     return render_template('voting_screen.html')
+
+
+@app.route('/results_page')
+def results_page():
+    """
+    Handles Results page
+    """
+    return render_template('results_page.html')
 
 
 if __name__ == "__main__":
