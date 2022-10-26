@@ -1,10 +1,10 @@
 """
 Defines routes of the project
 """
-from processpass import encryptpass 
+from .processpass import encryptpass 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from tables import RegisteredVoters, Post, Aspirants
+from .tables import RegisteredVoters, Post, Aspirants
 from flask import Flask, request, render_template, redirect
 
 # connects to database
@@ -44,7 +44,7 @@ def home():
     return redirect('/login')
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['POST', 'GET'])
 def login():
     """
     Handles user authentification into the system
@@ -198,7 +198,6 @@ def results_page():
     Handles Results page
     """
     return render_template('results_page.html')
-
 
 if __name__ == "__main__":
     app.run(port=5000)
