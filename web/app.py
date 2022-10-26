@@ -5,7 +5,7 @@ from processpass import encryptpass
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from tables import RegisteredVoters, Post, Aspirants
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect
 
 # connects to database
 username = 'rod'
@@ -15,6 +15,7 @@ engine = create_engine(str1)
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 app = Flask(__name__)
+
 
 # allow both GET and POST requests
 @app.route('/form-example', methods=['GET', 'POST'])
@@ -31,20 +32,35 @@ def form_example():
                   <div><label>Framework: <input type="text" name="framework"></label></div>
                   <input type="submit" value="Submit">
               </form>'''
+
+
 @app.route('/')
 @app.route('/home')
 def home():
     """
     Holds the landing Page
     """
-    return "This is the landng page"
+    # Redirecting home to login_page
+    return redirect('/login')
 
 
-@app.route('/login')
+@app.route('/login', methods=['POST'])
 def login():
     """
     Handles user authentification into the system
     """
+    if request.method == 'POST':
+        login_password = request.form.get('password')
+        login_userid = request.form.get('user_id')
+
+        # Check if admin
+        #
+        # Take to admin panel
+        #
+        #  Check if user in Database
+        #
+        # Take to voting_screen if casted votes are less that 6
+ 
     return render_template('login_page.html')
 
 
@@ -111,7 +127,7 @@ def register_aspirants():
         session.commit()
 
         return "You have successfully registered aspirant"
-    return render_template('aspirant.html')
+    return render_template('registration_page_aspirant.html')
 
 
 @app.route('/register-post', methods=['GET', 'POST'])
@@ -122,15 +138,66 @@ def register_post():
     if request.method == 'POST':
         postname = request.form.get("post_name").upper()
 
-        #Writing to the database
+        # Writing to the database
         post = Post(Post_Name=postname)
 
-        #Comitting to database
+        # Comitting to database
         session.add(post)
         session.commit()
         return "You have successfully registered the post"
 
     return render_template('post.html')
+
+
+@app.route('/select_asp', methods=['POST', 'GET'])
+def select_asp():
+    """
+    Takes you to aspirant voting page
+    """
+    if request.method == 'POST':
+        asp = list(request.form)[0]
+        page_to_load = 'vote_' + asp + '.html'
+        # print(page_to_load)
+        return render_template(page_to_load)
+    return render_template('voting_screen.html')
+
+
+@app.route('/vote', methods=['POST', 'GET'])
+def sent_vote():
+    """
+    handles the voting choices
+    """
+    print(request.form)
+    if request.method == 'POST':
+        if request.form:
+            choice = request.form['uo']
+            print(f"voter submitted Candidate no {choice}")
+            return render_template('voting_screen.html')
+    return redirect(request.referrer)
+
+
+@app.route('/admin_panel')
+def admin_panel():
+    """
+    Takes you to admin panel
+    """
+    return render_template('admin_panel.html')
+
+
+@app.route('/voting_screen')
+def voting_screen():
+    """
+    Takes you to voting screen
+    """
+    return render_template('voting_screen.html')
+
+
+@app.route('/results_page')
+def results_page():
+    """
+    Handles Results page
+    """
+    return render_template('results_page.html')
 
 
 if __name__ == "__main__":

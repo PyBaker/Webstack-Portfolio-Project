@@ -5,28 +5,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=, initial-scale=1.0">
     <title>E-Vote</title>
- 
-    <!--
-    <link rel="stylesheet" href="{{ url_for('static', filename='./styles/styles.css') }}">
-    <script src="{{ url_for('static',filename='styles/main.js') }}"></script>
-    -->
 
-    <script src="../static/styles/main.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="{{ url_for('static',filename='js/main.js') }}"></script>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-        crossorigin="anonymous"></script>
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
+    </script>
 
 
 
-    
+
 
 </head>
+<!--
+    background-image: url{{ url_for('static', filename='images/young_voters.webp') }};
+    -->
 
 <body>
     <section class="vh-100" style="background-color: #01531a; 
-    background-image: url(./young_voters.webp);
+    background-image: url('../static/images/young_voters.webp');
     background-size:cover;
     background-blend-mode: soft-light;
     backface-visibility: visible;">
@@ -44,56 +44,66 @@
                             <div class="col-md-6 col-lg-7 d-flex align-items-center">
                                 <div class="card-body p-4 p-lg-5 text-black">
 
-                                    <form>
 
-                                        <div class="d-flex align-items-center mb-3 pb-1">
-                                            <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
-                                            <span class="h1 fw-bold mb-0">e-vote
+                                    <div class="d-flex align-items-center mb-3 pb-1">
+                                        <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+                                        <span class="h1 fw-bold mb-0">E-Vote
 
-                                                <!-- 
+
+                                            <!-- 
                                                 <button class="btn btn-light btn-lg btn-outline-danger btn-block"
                                                     type="button">time
                                                     remaining 03d-21hrs</button>
                                                 -->
-                                                <button id="vote-t" class="btn btn-light btn-lg btn-outline-danger btn-block" 
-                                                    type="button">Time Remaining 2d 5hrs</button>
+                                            <button id="vote-t"
+                                                class="btn btn-light btn-lg btn-outline-danger btn-block"
+                                                type="button">Time Remaining 2d 5hrs</button>
 
-                                            </span>
+                                        </span>
+                                    </div>
+
+                                    <h5 class="slogan_main fw-normal mb-3 pb-3">Your vote
+                                        counts
+                                    </h5>
+
+                                    <form action="./login" method="POST">
+                                        <div class="form-outline">
+                                            <label class="form-label mb-0" for="form2Example17">ID No</label>
+                                            <input type="aphanum" id="user_id" name="user_id"
+                                                placeholder="Enter your National ID Number"
+                                                class="mb-3 mt-0 form-control form-control-lg" />
                                         </div>
 
-                                        <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Your vote
-                                            counts
-                                        </h5>
+                                        <div class="form-outline">
+                                            <label class="form-label mb-0" for="form2Example27">Password</label>
+                                            <input type="password" id="password" name="password"
+                                                placeholder="Enter your Password"
+                                                class="mb-5 mt-0 form-control form-control-lg" />
 
-                                        <div class="form-outline mb-4">
-                                            <input type="email" id="form2Example17"
-                                                class="form-control form-control-lg" />
-                                            <label class="form-label" for="form2Example17">ID No</label>
-                                        </div>
-
-                                        <div class="form-outline mb-4">
-                                            <input type="password" id="form2Example27"
-                                                class="form-control form-control-lg" />
-                                            <label class="form-label" for="form2Example27">Password</label>
                                         </div>
 
                                         <div class="pt-1 mb-4">
-                                            <button class="btn btn-dark btn-lg btn-block" type="button">Login to
+                                            <button class="btn btn-dark btn-lg btn-block" type="submit">Login to
                                                 vote</button>
                                             <a class="btn btn-dark btn-lg btn-block" type="button"
-                                                href="./results_page.html"> Check
+                                                href="results_page.html">
+                                                Check
                                                 Results</a>
                                         </div>
-                                        <a class="small text-muted" href="#!">Forgot password?</a>
-                                        <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a
-                                                href="./registration_page.html" style="color: #393f81;">Register here</a></p>
 
-                                                
-                                        <div class="row mt-5">
-                                            <a href="#!" class="small text-muted">terms of use.</a>
-                                            <a href="#!" class="small text-muted">privacy policy</a>
-                                        </div>
                                     </form>
+                                    <a class="small text-muted" href="#!">Forgot password?</a>
+                                    <!--
+                                        <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a
+                                                href="./registration_page.html" style="color: #393f81;">Register
+                                                here</a></p>
+                                        -->
+
+
+                                    <div class="row mt-5">
+                                        <a href="#!" class="small text-muted">terms of use.</a>
+                                        <a href="#!" class="small text-muted">privacy policy</a>
+                                    </div>
 
                                 </div>
                             </div>
