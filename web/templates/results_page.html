@@ -11,9 +11,11 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <script src="{{ url_for('static',filename='js/main.js') }}"></script>
 
+    <link rel="stylesheet" href="https://raw.githubusercontent.com/zachnietling/bootstrap-pulse/master/pulse.css">
 
     <!-- For Development -->
     <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" href="../static/css/pulse.css">
     <link rel="stylesheet" href="../static/css/bootstrap.min.css">
     <script src="../static/js/bootstrap.bundle.min.js"></script>
     <script src="../static/js/main.js"></script>
@@ -122,17 +124,27 @@
                                         </div>
 
                                     </divj <div class="row">
-                                    <span class="mt-4">
-                                        Time Remaining For Polls To Close
-                                    </span>
-                                    <button class="row btn mt-1 btn-light btn-lg btn-outline-danger btn-block"
-                                        type="button">time
-                                        remaining 03d-21hrs</button>
-                                    <span class="mt-4">
-                                        If You Haven't Voted Tap Or Click The below Button To Go To Login Page</span><a
-                                        class="row mt-1 btn btn-primary btn-lg float-end link-to-login"
-                                        href="./login_page.html">Go to login page to vote
-                                    </a>
+                                    <div class="form-group row mt-3 ">
+                                        <label for="staticemail" class="col col-form-label">Time Remaining for Polls to
+                                            Closes
+                                        </label>
+                                        <div class="col text-center">
+                                            <button class="row pulse-primary col btn mt-1 
+                                                btn-light btn-lg btn-outline-danger " type="button">time
+                                                remaining 03d-21hrs</button> </div>
+                                    </div>
+                                    <div class="form-group row mt-3 ">
+                                        <label for="staticemail" class="col col-form-label">If you haven't voted tap or
+                                            click the below button to go to login page </label>
+                                        <div class="col text-center">
+                                            <a class="row mt-1 btn btn-primary btn-lg link-to-login"
+                                                href="./login_page.html">Go to login page to vote
+                                            </a>
+                                        </div>
+                                    </div>
+
+
+
                                 </div>
                                 <div class="row mt-5">
                                     <a href="#!" class="small text-muted">terms of use.</a>

@@ -7,9 +7,8 @@
     <title>E-Vote</title>
 
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <script src="{{ url_for('static',filename='js/main.js') }}"></script>
-    <script src="{{ url_for('static',filename='scripts/aspirants.js') }}"></script>
+
+    <script src="../static/scripts/aspirants.js"></script>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -24,7 +23,6 @@
 
 <body>
     <section class="vh-100" style="background-color: #01531a; 
-    background-image: url(./young_voters.webp);
     background-size:cover;
     background-blend-mode: soft-light;
     backface-visibility: visible;">
@@ -36,8 +34,6 @@
                     <div class="card" style="border-radius: 1rem;">
                         <div class="row g-0">
                             <div class="col-md-6 col-lg-5 d-none d-md-block">
-                                <img src="/images/e-vote_banner.png" alt="login form" class="img-fluid"
-                                    style="border-radius: 1rem 0 0 1rem;" />
                             </div>
 
                             <div class="col-md-6 col-lg-7 d-flex align-items-center">
@@ -62,14 +58,17 @@
                                             Your Vote Counts
                                         </span>
                                     </div>
-                                    <div class="row mt-1 justify-content-center h1 shadow-lg text-bg-info" id="post_name">
+                                    <div class="row mt-1 justify-content-center h1 shadow-lg text-bg-info"
+                                        id="post_name">
                                         PRESIDENT </div>
 
                                     <form method="post" action="/vote">
+                                        {cp% if candidate_list%}
                                         <div class="row mt-4 justify-content-around" id="candidates">
                                             <div class="col">
                                                 <label class="col btn btn-dark btn-lg btn-block" id="candidate_label_1">
-                                                    CANDIDATE_1
+                                                    {{ candidate_list[1] }}
+                                                    {% endif%}
                                                     <input class="form-check-input" type="radio" name="uo" id="uo1"
                                                         value="1" onclick="set_btn_status()" />Vote
                                                 </label>
