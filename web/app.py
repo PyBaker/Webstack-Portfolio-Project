@@ -139,7 +139,7 @@ def register_aspirants():
             session.commit()
 
 
-        "You have successfully registered aspirant"
+        return "You have successfully registered aspirant"
 
     return render_template('registration_page_aspirant.html')
 
