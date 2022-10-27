@@ -68,102 +68,51 @@
                                         PRESIDENT </div>
 
                                     <form method="post" action="/vote">
-                                        {% if candidate_list_president %}
+                                        {% for candidate in  candidate_list_president %}
                                         <div class="row mt-4 justify-content-around" id="candidates">
                                             <div class="col">
                                                 <label class="col btn btn-dark btn-lg btn-block" id="candidate_label_1">
-                                                    {{ candidate_list_president[0][0] }}
+                                                    {{ candidate[1] }}
                                                     <input class="form-check-input" type="radio" name="uo" id="uo1"
-                                                        value="{{ candidate_list_president[0][0]  }}"
-                                                        onclick="set_btn_status()" />Vote
-                                                </label>
-
-                                            </div>
-                                            <div class="col">
-                                                <label class="col btn btn-dark btn-lg btn-block" id="candidate_label_2"
-                                                    type="label">
-                                                    {{ candidate_list_president[0][1]  }}
-                                                    <input class="form-check-input" type="radio" name="uo" id="uo2"
-                                                        value="{{ candidate_list_president[1][0] }}"
-                                                        onclick="set_btn_status()" />Vote
+                                                        value="{{ candidate[0] }}" onclick="set_btn_status()" />Vote
                                                 </label>
 
                                             </div>
                                         </div>
-                                        <div class="row mt-4 justify-content-around">
-                                            <div class="col">
-                                                <label class="col btn btn-dark btn-lg btn-block" type="label"
-                                                    id="candidate_label_3">
-                                                    {{ candidate_list_president[0][2] }}
-                                                    <input class="form-check-input" type="radio" name="uo" id="uo3"
-                                                        value="{{  candidate_list_president[2][0] }}"
-                                                        onclick="set_btn_status()" />Vote</label>
-
-                                            </div>
-                                            <div class="col">
-                                                <label class="col btn btn-dark btn-lg btn-block" type="label"
-                                                    id="candidate_label_4">
-                                                    {{ candidate_list_president[0][t 3] }}
-                                                    <input class="form-check-input" type="radio" name="uo" id="uo4"
-                                                        value="{{ candidate_list_president[3][0] }}"
-                                                        onclick="set_btn_status()" />Vote</label>
-
-                                            </div>
-                                        </div>
-                                        <div class="row mt-4 justify-content-around">
-                                            <div class="col">
-                                                <label class="col btn btn-dark btn-lg btn-block" type="label"
-                                                    id="candidate_label_5">
-                                                    {{ candidate_list_president[0][4]}}
-                                                    <input class="form-check-input" type="radio" name="uo" id="uo5"
-                                                        value="{{ candidate_list_president[4][0] }}"
-                                                        onclick="set_btn_status()" />Vote
-                                                </label>
-
-                                            </div>
-                                            <div class="col">
-                                                <label class="col btn btn-dark btn-lg btn-block" type="label"
-                                                    id="candidate_label_6">
-                                                    {{ candidate_list_president[0][5] }}
-                                                    <input class="form-check-input" type="radio" name="uo" id="uo6"
-                                                        value="{{ candidate_list_president[5][0] }}"
-                                                        onclick="set_btn_status()">Vote
-                                                </label>
-
-                                                {% endif%}
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="mt-4">
-                                            <span class="mt-3 ">
-                                                Choose Candidate By Clicking Or Tapping The Vote CheckBox
-                                                Besides Candidates Name And The CheckBox Will Be Marked
-                                            </span>
-                                        </div>
-                                        <div>
-                                            <button class="mt-1 btn btn-danger btn-lg float-end" type='submit'
-                                                id='submit_button' disabled='disabled'>
-                                                submit vote
-                                            </button>
-                                        </div>
-
-                                    </form>
-
-
-
-                                    <div class="row mt-5">
-                                        <a href="#!" class="small text-muted">terms of use.</a>
-                                        <a href="#!" class="small text-muted">privacy policy</a>
-                                    </div>
-
+                                        {% endfor %}
                                 </div>
                             </div>
+
+
+
+                            <div class="mt-4">
+                                <span class="mt-3 ">
+                                    Choose Candidate By Clicking Or Tapping The Vote CheckBox
+                                    Besides Candidates Name And The CheckBox Will Be Marked
+                                </span>
+                            </div>
+                            <div>
+                                <button class="mt-1 btn btn-danger btn-lg float-end" type='submit' id='submit_button'
+                                    disabled='disabled'>
+                                    submit vote
+                                </button>
+                            </div>
+
+                            </form>
+
+
+
+                            <div class="row mt-5">
+                                <a href="#!" class="small text-muted">terms of use.</a>
+                                <a href="#!" class="small text-muted">privacy policy</a>
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        </div>
         </div>
     </section>
     <!--/section-->
