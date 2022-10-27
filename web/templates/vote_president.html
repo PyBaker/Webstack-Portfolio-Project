@@ -72,18 +72,20 @@
                                         <div class="row mt-4 justify-content-around" id="candidates">
                                             <div class="col">
                                                 <label class="col btn btn-dark btn-lg btn-block" id="candidate_label_1">
-                                                    {{ candidate_list_president[1] }}
+                                                    {{ candidate_list_president[0][0] }}
                                                     <input class="form-check-input" type="radio" name="uo" id="uo1"
-                                                        value="1" onclick="set_btn_status()" />Vote
+                                                        value={% candidate_list_president[0][0] %}
+                                                        onclick="set_btn_status()" />Vote
                                                 </label>
 
                                             </div>
                                             <div class="col">
                                                 <label class="col btn btn-dark btn-lg btn-block" id="candidate_label_2"
                                                     type="label">
-                                                    {{ candidate_list_president[2] }}
+                                                    {{ candidate_list_president[0][1]  }}
                                                     <input class="form-check-input" type="radio" name="uo" id="uo2"
-                                                        value="2" onclick="set_btn_status()" />Vote
+                                                        value="{% candidate_list_president[1][0] %}"
+                                                        onclick="set_btn_status()" />Vote
                                                 </label>
 
                                             </div>
@@ -92,17 +94,19 @@
                                             <div class="col">
                                                 <label class="col btn btn-dark btn-lg btn-block" type="label"
                                                     id="candidate_label_3">
-                                                    {{ candidate_list_president[3] }}
+                                                    {{ candidate_list_president[0][2] }}
                                                     <input class="form-check-input" type="radio" name="uo" id="uo3"
-                                                        value="3" onclick="set_btn_status()" />Vote</label>
+                                                        value="{% candidate_list_president[2][0] %}"
+                                                        onclick="set_btn_status()" />Vote</label>
 
                                             </div>
                                             <div class="col">
                                                 <label class="col btn btn-dark btn-lg btn-block" type="label"
                                                     id="candidate_label_4">
-                                                    {{ candidate_list_president[4] }}
+                                                    {{ candidate_list_president[0]3] }}
                                                     <input class="form-check-input" type="radio" name="uo" id="uo4"
-                                                        value="4" onclick="set_btn_status()" />Vote</label>
+                                                        value="{% candidate_list_president[3][0] %}"
+                                                        onclick="set_btn_status()" />Vote</label>
 
                                             </div>
                                         </div>
@@ -110,18 +114,20 @@
                                             <div class="col">
                                                 <label class="col btn btn-dark btn-lg btn-block" type="label"
                                                     id="candidate_label_5">
-                                                    {{ candidate_list_president[5] }}
+                                                    {{ candidate_list_president[0][4]}}
                                                     <input class="form-check-input" type="radio" name="uo" id="uo5"
-                                                        value="5" onclick="set_btn_status()" />Vote
+                                                        value="{% candidate_list_president[4][0] %}"
+                                                        onclick="set_btn_status()" />Vote
                                                 </label>
 
                                             </div>
                                             <div class="col">
                                                 <label class="col btn btn-dark btn-lg btn-block" type="label"
                                                     id="candidate_label_6">
-                                                    {{ candidate_list_president[6] }}
+                                                    {{ candidate_list_president[0][5] }}
                                                     <input class="form-check-input" type="radio" name="uo" id="uo6"
-                                                        value="6" onclick="set_btn_status()">Vote
+                                                        value="{% candidate_list_president[5][0] %}"
+                                                        onclick="set_btn_status()">Vote
                                                 </label>
 
                                                 {% endif%}

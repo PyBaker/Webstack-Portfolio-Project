@@ -213,6 +213,55 @@ def sent_vote():
             return render_template('voting_screen.html')
     return redirect(request.referrer)
 
+@app.route('/vote_president')
+def vote_president():
+    """
+    Takes you to Aspirant page
+    """
+    return render_template('vote_president.html')
+
+
+@app.route('/vote_senator')
+def vote_senator():
+    """
+    Takes you to Aspirant page
+    """
+    return render_template('vote_senator.html')
+
+
+@app.route('/vote_mca')
+def vote_mca():
+    """
+    Takes you to Aspirant page
+    """
+    return render_template('vote_mca.html')
+
+
+@app.route('/vote_mp')
+def vote_mp():
+    """
+    Takes you to Aspirant page
+    """
+    return render_template('vote_mp.html')
+
+
+@app.route('/vote_woman_rep')
+def vote_woman_rep():
+    """
+    Takes you to Aspirant page
+    """
+    return render_template('vote_woman_rep.html')
+
+
+@app.route('/vote_governor')
+def vote_():
+    """
+    Takes you to admin panel
+    """
+    return render_template('vote_governor.html')
+
+
+
 
 @app.route('/admin_panel')
 def admin_panel():
