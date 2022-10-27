@@ -51,7 +51,7 @@ class RegisteredVoters(Base, BaseModel):
     """
     __tablename__ = "REGISTERED_VOTERS"
     reg_no = Column(Integer, primary_key=True, unique=True, autoincrement=True)
-    id_no = Column(Integer, unique=True)
+    id_no = Column(Integer, unique=True, autoincrement=False)
     First_Name = Column(String(256), nullable=False)
     Middle_Name = Column(String(256))
     Last_Name = Column(String(256))
