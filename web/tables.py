@@ -67,15 +67,14 @@ class Aspirants(Base, BaseModel):
     """
     __tablename__ = "ASPIRANTS"
     asp_no = Column(Integer, primary_key=True, autoincrement=True)
-    id_no = Column(Integer, ForeignKey("REGISTERED_VOTERS.id_no"), primary_key=True)
-    post_no = Column(Integer, ForeignKey("POST.post_no"), primary_key=True)
+    id_no = Column(Integer, ForeignKey("REGISTERED_VOTERS.id_no"))
+    post_no = Column(Integer, ForeignKey("POST.post_no"))
     post_name = Column(String(256), nullable=False)
     First_Name = Column(String(256), nullable=False)
     Middle_Name = Column(String(256))
     Last_Name = Column(String(256))
     photo = Column(String(256))
     Location = Column(String(256))
-    Password = Column(LargeBinary)
     Email = Column(String(256))
     DOR = Column(DateTime(timezone=True), server_default=func.now())
     no_of_votes = Column(Integer, default=0)
