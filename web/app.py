@@ -1,11 +1,11 @@
 """
 Defines routes of the project
 """
-from .processpass import encryptpass 
+from processpass import encryptpass 
 from sqlalchemy import create_engine
 from sqlalchemy.exc import IntegrityError, PendingRollbackError
 from sqlalchemy.orm import sessionmaker
-from .tables import RegisteredVoters, Post, Aspirants
+from tables import RegisteredVoters, Post, Aspirants
 from flask import Flask, request, render_template, redirect
 
 # connects to database
@@ -194,10 +194,9 @@ def select_asp():
 
         name = ['Chakulu','Henry','Paul'] # Something like This
         # data = session.query(Aspirants).filter(Aspirants.post_name == 'president')
-        data = session.query(Aspirants).filter(Aspirants.post_name == asp).all()
-        print(data)
+        data = session.query(Aspirants.asp_no, Aspirants.First_Name, Aspirants.Middle_Name, Aspirants.Last_Name).filter(Aspirants.post_name == asp).all()
         # print(f"this is the data \n\n {data} \n\n")
-        return render_template(page_to_load, candidate_list_president=data)
+        return render_template(page_to_load, candidate_list_president=list(data))
     return render_template('voting_screen.html')
 
 
