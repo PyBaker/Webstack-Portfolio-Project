@@ -1,11 +1,11 @@
 """
 Defines routes of the project
 """
-from processpass import encryptpass 
+from .processpass import encryptpass 
 from sqlalchemy import create_engine
 from sqlalchemy.exc import IntegrityError, PendingRollbackError
 from sqlalchemy.orm import sessionmaker
-from tables import RegisteredVoters, Post, Aspirants
+from .tables import RegisteredVoters, Post, Aspirants
 from flask import Flask, request, render_template, redirect
 
 # connects to database
@@ -139,7 +139,8 @@ def register_aspirants():
             session.commit()
 
 
-        return "You have successfully registered aspirant"
+        "You have successfully registered aspirant"
+
     return render_template('registration_page_aspirant.html')
 
 
@@ -179,7 +180,8 @@ def select_asp():
         asp = list(request.form)[0]
         page_to_load = 'vote_' + asp + '.html'
         # print(page_to_load)
-        return render_template(page_to_load)
+        name = ['Chakulu','Henry','Paul']
+        return render_template(page_to_load, candidate_list=name)
     return render_template('voting_screen.html')
 
 
