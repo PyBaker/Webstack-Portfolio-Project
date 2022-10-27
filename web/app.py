@@ -111,7 +111,7 @@ def register_aspirants():
     Handles registration of Aspirants
     """
     if request.method == "POST":
-        idno = request.form.get("idno")
+        idno = request.form.get("id_no")
         postname = request.form.get("post_name")
         firstname = request.form.get("first_name").upper()
         middlename = request.form.get("middle_name").upper()
@@ -119,10 +119,14 @@ def register_aspirants():
         location = request.form.get("location").upper()
         email = request.form.get("email")
 
+        #Query database for post names
+        if session.query(Post).filter(Post.Post_Name == postname).first() is None:
+            return "Post is yet to be registered"
+
         # Writing to the database
         Aspirant = Aspirants()
         Aspirant.id_no = idno
-        Aspirant.Post_Name = postname
+        Aspirant.post_name = postname
         Aspirant.First_Name = firstname
         Aspirant.Middle_Name = middlename
         Aspirant.Last_Name = lastname
@@ -137,6 +141,8 @@ def register_aspirants():
             session.rollback()
             session.add(Aspirant)
             session.commit()
+        except IntegrityError:
+            return "Aspirant Must Be A Registered Voter"
 
 
         return "You have successfully registered aspirant"
@@ -159,10 +165,10 @@ def register_post():
         try:
             session.add(post)
             session.commit()
-        #except PendingRollbackError:
-         #   session.rollback()
-          #  session.add(post)
-           # session.commit()
+        except PendingRollbackError:
+            session.rollback()
+            session.add(post)
+            session.commit()
         except IntegrityError:
             return "The post already exists"
 
