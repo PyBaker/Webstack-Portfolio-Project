@@ -53,7 +53,6 @@ def get_aspirant(asp_no):
 
         return make_response(jsonify(aspirant.to_dict()), 200)
 
-
 @app_views.route('/vote', methods=['PUT'])
 def vote():
     """allows registered voters to vote for an aspirant"""
@@ -91,29 +90,36 @@ def vote():
     voter = session.query(Voters).filter(Voters.reg_no == reg_no).first()
     if not voter:
         voter = Voters(id_no=id_no, reg_no=reg_no)
-        voter[post_name] = True
+        setattr(voter, post_name, True)
         session.add(voter)
         session.commit()
     else:
         # check if fully voted
-        if voter.status == "V":
+        if voter.Status == "V":
             return make_response(jsonify({'error': 'Already completed voting'}), 400)
         # check if voted for this post
-        if voter[post_name]:
+        if getattr(voter, post_name):
             return make_response(jsonify({'error': 'Cannot vote for this candidate twice'}), 400)
         # vote
-        voter[post_name] = True
+        setattr(voter, post_name, True)
+        # increase aspirant number of votes
+        if aspirant.no_of_votes:
+            aspirant.no_of_votes += 1
+        else:
+            aspirant.no_of_votes = 1
+
         # if fully voted after this, change status to V
         status = 0
         for post in ["president", "senator", "governor", "mp"]:
-            if voter[post] == False:
+            if getattr(voter, post):
                 status = 1
         if status == 0:   
-            voter.status = "V"
+            voter.Status = "V"
     
     session.commit()
 
     return make_response(jsonify({'res': 'You have successfully voted!'}), 200)
+
     
 
 
