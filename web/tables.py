@@ -51,7 +51,7 @@ class RegisteredVoters(Base, BaseModel):
     """
     __tablename__ = "REGISTERED_VOTERS"
     reg_no = Column(Integer, primary_key=True, unique=True, autoincrement=True)
-    id_no = Column(Integer, primary_key=True, unique=True)
+    id_no = Column(Integer, unique=True)
     First_Name = Column(String(256), nullable=False)
     Middle_Name = Column(String(256))
     Last_Name = Column(String(256))
@@ -67,7 +67,7 @@ class Aspirants(Base, BaseModel):
     """
     __tablename__ = "ASPIRANTS"
     asp_no = Column(Integer, primary_key=True, autoincrement=True)
-    id_no = Column(Integer, ForeignKey("REGISTERED_VOTERS.id_no"))
+    id_no = Column(Integer, ForeignKey("REGISTERED_VOTERS.id_no"), unique=True)
     post_no = Column(Integer, ForeignKey("POST.post_no"))
     post_name = Column(String(256), nullable=False)
     First_Name = Column(String(256), nullable=False)
@@ -127,8 +127,9 @@ class Voters(Base, BaseModel):
     system
     """
     __tablename__ = "VOTERS"
-    id_no = Column(Integer, ForeignKey("REGISTERED_VOTERS.id_no"), primary_key=True)
-    reg_no = Column(Integer, ForeignKey("REGISTERED_VOTERS.reg_no"), primary_key=True)
+    voter_id = Column(Integer, primary_key=True, autoincrement=True)
+    id_no = Column(Integer, ForeignKey("REGISTERED_VOTERS.id_no"), unique=True)
+    reg_no = Column(Integer, ForeignKey("REGISTERED_VOTERS.reg_no"))
     president = Column(Boolean, default=False)
     senator = Column(Boolean, default=False)
     governor = Column(Boolean, default=False)
