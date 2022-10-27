@@ -3,7 +3,7 @@ import sqlalchemy_utils as sq
 
 
 username = 'rod'
-password = 'r'
+password = 'r' 
 database = 'VOTEAPP'
 str1 = f'mysql://{username}:{password}@localhost:3306/{database}'  # Holds database info
 engine = create_engine(str1)

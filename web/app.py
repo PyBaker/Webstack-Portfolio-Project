@@ -1,16 +1,16 @@
 """
 Defines routes of the project
 """
-from processpass import encryptpass 
+from .processpass import encryptpass 
 from sqlalchemy import create_engine
 from sqlalchemy.exc import IntegrityError, PendingRollbackError
 from sqlalchemy.orm import sessionmaker
-from tables import RegisteredVoters, Post, Aspirants
+from .tables import RegisteredVoters, Post, Aspirants
 from flask import Flask, request, render_template, redirect
 
 # connects to database
 username = 'rod'
-password = 'r'
+password = 'r' 
 str1 = f'mysql://{username}:{password}@localhost:3306/VOTEAPP'  # Holds database info
 engine = create_engine(str1)
 DBSession = sessionmaker(bind=engine)
@@ -183,11 +183,21 @@ def select_asp():
     Takes you to aspirant voting page
     """
     if request.method == 'POST':
+        # print(request.form)
+        # print(list(request.form))
         asp = list(request.form)[0]
+        # print(asp)
         page_to_load = 'vote_' + asp + '.html'
         # print(page_to_load)
-        name = ['Chakulu','Henry','Paul']
-        return render_template(page_to_load, candidate_list=name)
+        # name = data_with_president_names_????
+        # post_to_display = 'president'
+
+        name = ['Chakulu','Henry','Paul'] # Something like This
+        # data = session.query(Aspirants).filter(Aspirants.post_name == 'president')
+        data = session.query(Aspirants).filter(Aspirants.post_name == asp).all()
+        print(data)
+        # print(f"this is the data \n\n {data} \n\n")
+        return render_template(page_to_load, candidate_list_president=data)
     return render_template('voting_screen.html')
 
 

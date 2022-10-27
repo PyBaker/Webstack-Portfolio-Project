@@ -7,7 +7,7 @@ from sqlalchemy.sql import func
 import uuid
 
 username = "rod"
-password = "r"
+password = "rodahiA1@"
 str1 = f'mysql://{username}:{password}@localhost:3306/VOTEAPP'  # Holds database info
 engine = create_engine(str1)
 Base = declarative_base()
