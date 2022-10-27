@@ -1,11 +1,11 @@
 """
 Defines routes of the project
 """
-from .processpass import encryptpass 
+from processpass import encryptpass 
 from sqlalchemy import create_engine
 from sqlalchemy.exc import IntegrityError, PendingRollbackError
 from sqlalchemy.orm import sessionmaker
-from .tables import RegisteredVoters, Post, Aspirants
+from tables import RegisteredVoters, Post, Aspirants
 from flask import Flask, request, render_template, redirect
 
 # connects to database
