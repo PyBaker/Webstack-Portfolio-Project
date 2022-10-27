@@ -3,6 +3,7 @@ Defines routes of the project
 """
 from processpass import encryptpass 
 from sqlalchemy import create_engine
+from sqlalchemy.exc import IntegrityError, PendingRollbackError
 from sqlalchemy.orm import sessionmaker
 from tables import RegisteredVoters, Post, Aspirants
 from flask import Flask, request, render_template, redirect
@@ -89,9 +90,17 @@ def register_user():
         User.Email = email
         
         # Comitting User to database
-        session.add(User)
-        session.commit()
-        return "You have Successfully Registred"
+        try:
+            session.add(User)
+            session.commit()
+        except PendingRollbackError:
+            session.rollback()
+            session.add(User)
+            session.commit()
+        except IntegrityError:
+            return f"The user {User.First_Name} has already been registered"
+
+        return f"You have Successfully Registred {User.First_Name}"
 
     return render_template('registration_page.html')
 
@@ -103,12 +112,11 @@ def register_aspirants():
     """
     if request.method == "POST":
         idno = request.form.get("idno")
-        postname = request.form.get("post_name").upper()
+        postname = request.form.get("post_name")
         firstname = request.form.get("first_name").upper()
         middlename = request.form.get("middle_name").upper()
         lastname = request.form.get("last_name").upper()
         location = request.form.get("location").upper()
-        password = request.form.get("password")
         email = request.form.get("email")
 
         # Writing to the database
@@ -119,14 +127,20 @@ def register_aspirants():
         Aspirant.Middle_Name = middlename
         Aspirant.Last_Name = lastname
         Aspirant.Location = location
-        Aspirant.Password = encryptpass(password)
         Aspirant.Email = email
         
         # Commiting to the database
-        session.add(Aspirant)
-        session.commit()
+        try:
+            session.add(Aspirant)
+            session.commit()
+        except PendingRollbackError:
+            session.rollback()
+            session.add(Aspirant)
+            session.commit()
+
 
         return "You have successfully registered aspirant"
+
     return render_template('registration_page_aspirant.html')
 
 
@@ -142,8 +156,16 @@ def register_post():
         post = Post(Post_Name=postname)
 
         # Comitting to database
-        session.add(post)
-        session.commit()
+        try:
+            session.add(post)
+            session.commit()
+        #except PendingRollbackError:
+         #   session.rollback()
+          #  session.add(post)
+           # session.commit()
+        except IntegrityError:
+            return "The post already exists"
+
         return "You have successfully registered the post"
 
     return render_template('post.html')
@@ -158,7 +180,8 @@ def select_asp():
         asp = list(request.form)[0]
         page_to_load = 'vote_' + asp + '.html'
         # print(page_to_load)
-        return render_template(page_to_load)
+        name = ['Chakulu','Henry','Paul']
+        return render_template(page_to_load, candidate_list=name)
     return render_template('voting_screen.html')
 
 
