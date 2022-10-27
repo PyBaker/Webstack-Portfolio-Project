@@ -39,7 +39,7 @@ class BaseModel():
 class myEnum(enum.Enum):
     """
     Defines enums to be used in the status
-    fiels
+    fields
     """
     V = "Voted"
     NV = "Not Voted"
@@ -109,7 +109,7 @@ class Admin(Base, BaseModel):
 class Votes(Base):
     
     __tablename__ = 'VOTES'
-    vno = Column(Integer, primary_key=True)
+    vno = Column(Inhttps://github.com/PyBaker/Webstack-Portfolio-Project.gitteger, primary_key=True)
     asp_no = Column(Integer, ForeignKey("ASPIRANTS.asp_no"))
     pno = Column(Integer, ForeignKey("POST.pno"))
     seat_name = Column(String(256))
@@ -138,9 +138,6 @@ class Voters(Base, BaseModel):
     Status = Column(Enum(myEnum), default='NV')
     DOV = Column(DateTime(timezone=True), server_default=func.now())
 
-
-#creates database first
-# engine.connect().execute('CREATE DATABASE VOTEAPP;')
 
 # Deletes Tables Before Creating them
 if __name__ == "__main__":
