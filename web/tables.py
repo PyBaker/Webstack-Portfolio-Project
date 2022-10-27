@@ -68,8 +68,7 @@ class Aspirants(Base, BaseModel):
     __tablename__ = "ASPIRANTS"
     asp_no = Column(Integer, primary_key=True, autoincrement=True)
     id_no = Column(Integer, ForeignKey("REGISTERED_VOTERS.id_no"), unique=True)
-    post_no = Column(Integer, ForeignKey("POST.post_no"))
-    post_name = Column(String(256), nullable=False)
+    post_name = Column(String(256), ForeignKey("POST.Post_Name"), nullable=False)
     First_Name = Column(String(256), nullable=False)
     Middle_Name = Column(String(256))
     Last_Name = Column(String(256))
