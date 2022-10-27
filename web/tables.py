@@ -21,7 +21,8 @@ class RegisteredVoters(Base):
     Defines a class RegisteredVoters
     """
     __tablename__ = "REGISTERED_VOTERS"
-    reg_no = Column(Integer, primary_key=True)
+    reg_no = Column(Integer, primary_key=True, autoincrement=True)
+    id_no = Column(Integer, primary_key=True, autoincrement=False)
     First_Name = Column(String(256), nullable=False)
     Middle_Name = Column(String(256))
     Last_Name = Column(String(256))
@@ -37,13 +38,12 @@ class Aspirants(Base):
     """
     __tablename__ = "ASPIRANTS"
     asp_no = Column(Integer, primary_key=True)
-    id_no = Column(Integer, ForeignKey("REGISTERED_VOTERS.reg_no"))
-    pno = Column(Integer, ForeignKey("POST.pno"))
+    id_no = Column(Integer, ForeignKey("REGISTERED_VOTERS.id_no"))
+    Post_Name = Column(Integer, ForeignKey("POST.Post_Name"))
     First_Name = Column(String(256), nullable=False)
     Middle_Name = Column(String(256))
     Last_Name = Column(String(256))
     Location = Column(String(256))
-    Password = Column(LargeBinary)
     Email = Column(String(256))
     DOR = Column(DateTime(timezone=True), server_default=func.now())
 
