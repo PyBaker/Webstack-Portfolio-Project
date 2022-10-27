@@ -6,7 +6,7 @@ from processpass import encryptpass
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from tables import RegisteredVoters, Post, Aspirants, Voters, Admin
-from flask import Flask, request, render_template, redirect, make_response, jsonify
+from flask import Flask, flash, request, render_template, redirect, make_response, jsonify
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
 # connects to database
@@ -70,7 +70,7 @@ def login():
         #return f'{login_password}'
         
         # check if admin -- take to admin panel
-        admin = session.query(Admin).filter(Admin.id_no == int(login_userid)).first()
+        admin = session.query(Admin).filter(Admin.id == int(login_userid)).first()        
         if admin:
             if admin.Password.decode('ascii') != login_password:
                 return 'Wrong password!'
@@ -86,7 +86,7 @@ def login():
                 return 'Wrong password!'
 
             # Take to voting_screen if casted votes are less that 6
-            voter = session.query(Voters).filter(Voters.id_no == int(login_userid)).first()
+            voter = session.query(Voters).filter(Voters.id == int(login_userid)).first()
             if (not voter) or (voter.status == "NV"):
                 login_user(user)
                 return redirect('/voting_screen')
@@ -105,7 +105,6 @@ def logout():
 
 
 @app.route('/register-users', methods=['GET', 'POST'])
-@login_required
 def register_user():
     """
     Handles registration of users
@@ -114,9 +113,11 @@ def register_user():
     # make this page only available to admins -- do the same for the other admin page
     if request.method == "GET":
         admin_id = current_user.id
-        admin = session.query(Admin).filter(Admin.id_no == int(admin_id)).first()
+        admin = session.query(Admin).filter(Admin.id == int(admin_id)).first()
         if not admin:
-            return 'Admin Page! Please visit the log in page to log in'
+            flash('Admin Page! Please visit the log in page to log in')
+            return redirect('/voting_screen')
+            # redirect to voting screen
     if request.method == "POST":
         id_no = request.form.get("id_no")
         firstname = request.form.get("first_name").upper()
@@ -146,7 +147,6 @@ def register_user():
 
 
 @app.route('/register-aspirants', methods=['GET', 'POST'])
-@login_required
 def register_aspirants():
     """
     Handles registration of Aspirants
@@ -184,7 +184,6 @@ def register_aspirants():
 
 
 @app.route('/register-post', methods=['GET', 'POST'])
-@login_required
 def register_post():
     """
     Handles registration of Posts
@@ -232,7 +231,6 @@ def sent_vote():
 
 
 @app.route('/admin_panel')
-@login_required
 def admin_panel():
     """
     Takes you to admin panel

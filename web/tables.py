@@ -71,7 +71,7 @@ class Aspirants(Base, UserMixin, BaseModel):
     __tablename__ = "ASPIRANTS"
     asp_no = Column(Integer, primary_key=True, autoincrement=True)
     # fix this column below: id_no == id_no not reg_no
-    id_no = Column(Integer, ForeignKey("REGISTERED_VOTERS.id"), primary_key=True)
+    id = Column(Integer, ForeignKey("REGISTERED_VOTERS.id"), primary_key=True)
     post_no = Column(Integer, ForeignKey("POST.post_no"), primary_key=True)
     post_name = Column(String(256), nullable=False)
     First_Name = Column(String(256), nullable=False)
@@ -99,7 +99,7 @@ class Admin(Base, UserMixin, BaseModel):
     Defines a class Admin
     """
     __tablename__ = "ADMIN"
-    id_no = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True)
     First_Name = Column(String(256), nullable=False)
     Middle_Name = Column(String(256))
     Last_Name = Column(String(256))
@@ -116,7 +116,7 @@ class Voters(Base, BaseModel):
     system
     """
     __tablename__ = "VOTERS"
-    id_no = Column(Integer, ForeignKey("REGISTERED_VOTERS.id"), primary_key=True)
+    id = Column(Integer, ForeignKey("REGISTERED_VOTERS.id"), primary_key=True)
     reg_no = Column(Integer, ForeignKey("REGISTERED_VOTERS.reg_no"), primary_key=True)
     president = Column(Boolean, default=False)
     senator = Column(Boolean, default=False)

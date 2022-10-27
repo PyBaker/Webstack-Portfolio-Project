@@ -138,6 +138,11 @@ class Voters(Base, BaseModel):
     Status = Column(Enum(myEnum), default='NV')
     DOV = Column(DateTime(timezone=True), server_default=func.now())
 
+"""
+voter = Voters()
+voter.id_no = x
+voter.president = True"""
+
 
 #creates database first
 # engine.connect().execute('CREATE DATABASE VOTEAPP;')

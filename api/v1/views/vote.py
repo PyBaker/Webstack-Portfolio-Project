@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Defines APIs that implement the voting feature"""
+from msilib.schema import InstallUISequence
 from api.v1.views import app_views
 from flask import jsonify, make_response, request
 from Models.tables import RegisteredVoters, Post, Aspirants, Voters
@@ -51,7 +52,7 @@ def vote():
     voter = session.query(Voters).filter(Voters.reg_no == reg_no).first()
     if not voter:
         voter = Voters(id_no=id_no, reg_no=reg_no)
-        voter[f'{post_name}'] = True
+        setattr(voter, post_name, True)
         session.add(voter)
         session.commit()
     else:
@@ -59,14 +60,16 @@ def vote():
         if voter.status == "V":
             return make_response(jsonify({'error': 'Already completed voting'}), 400)
         # check if voted for this post
-        if voter[f'{post_name}']:
+        if getattr(voter, post_name):
             return make_response(jsonify({'error': 'Cannot vote for this candidate twice'}), 400)
         # vote
-        voter[f'{post_name}'] = True
+        setattr(voter, post_name, True)
+        # increase number of voter for aspirant
+        aspirant.no_of_votes += 1
         # if fully voted after this, change status to V
         status = 0
         for post in ["president", "senator", "governor", "mp"]:
-            if voter[post] == False:
+            if getattr(voter, post):
                 status = 1
         if status == 0:   
             voter.status = "V"
@@ -74,4 +77,3 @@ def vote():
     session.commit()
 
     return make_response(jsonify({'res': 'You have successfully voted!'}), 200)
-    
