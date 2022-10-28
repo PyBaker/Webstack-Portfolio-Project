@@ -6,7 +6,7 @@ from processpass import encryptpass
 from sqlalchemy import create_engine
 from sqlalchemy.exc import IntegrityError, PendingRollbackError
 from sqlalchemy.orm import sessionmaker
-from tables import RegisteredVoters, Post, Aspirants, Voters, Admin
+from tables import RegisteredVoters, Post, Aspirants, Voters, Admin, myEnum
 from flask import Flask, flash, request, render_template, redirect, make_response, jsonify
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
@@ -86,14 +86,19 @@ def login():
             if user.Password.decode('ascii') != login_password:
                 return 'Wrong password!'
 
+            # comment out
+            # login_user(user)
+            # return redirect('/voting_screen')
             # Take to voting_screen if casted votes are less that 6
             voter = session.query(Voters).filter(Voters.id == int(login_userid)).first()
-            if (not voter) or (voter.status == "NV"):
-                login_user(user)
-                return redirect('/voting_screen')
-            else:
-                # take to results page??
-                return redirect('/results_page')
+            if voter:
+                if voter.Status == myEnum.NV:
+                    login_user(user)
+                    # return redirect('/voting_screen')
+                else:
+                    # take to results page??
+                    return redirect('/results_page')
+            return redirect('/voting_screen')
     return render_template('login_page.html')
 
 
@@ -253,17 +258,61 @@ def select_asp():
     return render_template('voting_screen.html')
 
 
-@app.route('/vote', methods=['POST', 'GET'])
-def sent_vote():
+@app.route('/vote/<post_name>', methods=['POST', 'GET'])
+def sent_vote(post_name):
     """
     handles the voting choices
     """
-    print(request.form)
-    if request.method == 'POST':
-        if request.form:
-            choice = request.form['uo']
-            print(f"voter submitted Candidate no {choice}")
-            return render_template('voting_screen.html')
+    #print(request.form['uo'])
+    #print(post_name)
+    if request.method == 'POST':    
+    # confirm aspirants  and post details
+        asp_no = int(request.form['uo'])
+
+        aspirant = session.query(Aspirants).filter(Aspirants.asp_no == asp_no).first()
+        
+        # confirm voter details
+        id_no = current_user.id
+        reg_no = current_user.reg_no
+
+        r_voter = session.query(RegisteredVoters).filter(RegisteredVoters.reg_no == reg_no).first()
+        if not r_voter:
+            return 'Not a registered voter'
+
+        # confirm voting duplicates
+        voter = session.query(Voters).filter(Voters.reg_no == reg_no).first()
+        if not voter:
+            voter = Voters(id=id_no, reg_no=reg_no)
+            setattr(voter, post_name, True)
+            session.add(voter)
+            session.commit()
+        else:
+            # check if fully voted
+            if voter.Status == myEnum.V:
+                flash('Already completed voting')
+                return redirect('/results_page')
+            # check if voted for this post
+            if getattr(voter, post_name):
+                flash('Cannot vote for this candidate twice')
+                return redirect('/voting_screen')
+            # vote
+            setattr(voter, post_name, True)
+            # increase aspirant number of votes
+            if aspirant.no_of_votes:
+                aspirant.no_of_votes += 1
+            else:
+                aspirant.no_of_votes = 1
+
+            # if fully voted after this, change status to V
+            status = 0
+            for post in ["president", "senator", "governor", "mp"]:
+                if getattr(voter, post):
+                    status = 1
+            if status == 0:   
+                voter.Status = myEnum.V
+                return redirect('/results_page')
+        
+        session.commit()
     return redirect(request.referrer)
 
 @app.route('/vote_president')
