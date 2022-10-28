@@ -42,7 +42,7 @@ class BaseModel():
 class myEnum(enum.Enum):
     """
     Defines enums to be used in the status
-    fiels
+    fields
     """
     V = "Voted"
     NV = "Not Voted"
@@ -54,7 +54,7 @@ class RegisteredVoters(Base, UserMixin, BaseModel):
     """
     __tablename__ = "REGISTERED_VOTERS"
     reg_no = Column(Integer, primary_key=True, unique=True, autoincrement=True)
-    id = Column(Integer, primary_key=True, unique=True)
+    id = Column(Integer, unique=True, autoincrement=False)
     First_Name = Column(String(256), nullable=False)
     Middle_Name = Column(String(256))
     Last_Name = Column(String(256))
@@ -70,16 +70,13 @@ class Aspirants(Base, UserMixin, BaseModel):
     """
     __tablename__ = "ASPIRANTS"
     asp_no = Column(Integer, primary_key=True, autoincrement=True)
-    # fix this column below: id_no == id_no not reg_no
-    id = Column(Integer, ForeignKey("REGISTERED_VOTERS.id"), primary_key=True)
-    post_no = Column(Integer, ForeignKey("POST.post_no"), primary_key=True)
-    post_name = Column(String(256), nullable=False)
+    id = Column(Integer, ForeignKey("REGISTERED_VOTERS.id"), unique=True)
+    post_name = Column(String(256), ForeignKey("POST.Post_Name"), nullable=False)
     First_Name = Column(String(256), nullable=False)
     Middle_Name = Column(String(256))
     Last_Name = Column(String(256))
     photo = Column(String(256))
     Location = Column(String(256))
-    Password = Column(LargeBinary)
     Email = Column(String(256))
     DOR = Column(DateTime(timezone=True), server_default=func.now())
     no_of_votes = Column(Integer, default=0)
@@ -116,8 +113,9 @@ class Voters(Base, BaseModel):
     system
     """
     __tablename__ = "VOTERS"
-    id = Column(Integer, ForeignKey("REGISTERED_VOTERS.id"), primary_key=True)
-    reg_no = Column(Integer, ForeignKey("REGISTERED_VOTERS.reg_no"), primary_key=True)
+    voter_id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(Integer, ForeignKey("REGISTERED_VOTERS.id"), unique=True)
+    reg_no = Column(Integer, ForeignKey("REGISTERED_VOTERS.reg_no"))
     president = Column(Boolean, default=False)
     senator = Column(Boolean, default=False)
     governor = Column(Boolean, default=False)
@@ -125,9 +123,6 @@ class Voters(Base, BaseModel):
     Status = Column(Enum(myEnum), default='NV')
     DOV = Column(DateTime(timezone=True), server_default=func.now())
 
-
-#creates database first
-# engine.connect().execute('CREATE DATABASE VOTEAPP;')
 
 # Deletes Tables Before Creating them
 if __name__ == "__main__":

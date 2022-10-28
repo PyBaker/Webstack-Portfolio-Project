@@ -4,6 +4,7 @@ Defines routes of the project
 import secrets
 from processpass import encryptpass 
 from sqlalchemy import create_engine
+from sqlalchemy.exc import IntegrityError, PendingRollbackError
 from sqlalchemy.orm import sessionmaker
 from tables import RegisteredVoters, Post, Aspirants, Voters, Admin
 from flask import Flask, flash, request, render_template, redirect, make_response, jsonify
@@ -11,7 +12,7 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 
 # connects to database
 username = 'rod'
-password = 'r'
+password = 'r' 
 str1 = f'mysql://{username}:{password}@localhost:3306/VOTEAPP'  # Holds database info
 engine = create_engine(str1)
 DBSession = sessionmaker(bind=engine)
@@ -138,10 +139,17 @@ def register_user():
         User.Email = email
         
         # Comitting User to database
-        session.add(User)
-        session.commit()
-        # display voter information i.e name, reg_no with this message below
-        return "You have Successfully Registred the voter"
+        try:
+            session.add(User)
+            session.commit()
+        except PendingRollbackError:
+            session.rollback()
+            session.add(User)
+            session.commit()
+        except IntegrityError:
+            return f"The user {User.First_Name} has already been registered"
+
+        return f"You have Successfully Registred {User.First_Name}"
 
     return render_template('registration_page.html')
 
@@ -154,32 +162,43 @@ def register_aspirants():
 
     # check if aspirant is a registered voter first
     if request.method == "POST":
-        id_no = request.form.get("id_no")
-        postname = request.form.get("post_name").upper()
+        idno = request.form.get("id_no")
+        postname = request.form.get("post_name")
         firstname = request.form.get("first_name").upper()
         middlename = request.form.get("middle_name").upper()
         lastname = request.form.get("last_name").upper()
         location = request.form.get("location").upper()
-        password = request.form.get("password")
         email = request.form.get("email")
+
+        #Query database for post names
+        if session.query(Post).filter(Post.Post_Name == postname).first() is None:
+            return "Post is yet to be registered"
 
         # Writing to the database
         # get aspirant from registered voters -- check if exists
         Aspirant = Aspirants()
-        Aspirant.id_no = int(id_no)
-        Aspirant.Post_Name = postname
+        Aspirant.id = idno
+        Aspirant.post_name = postname
         Aspirant.First_Name = firstname
         Aspirant.Middle_Name = middlename
         Aspirant.Last_Name = lastname
         Aspirant.Location = location
-        Aspirant.Password = encryptpass(password)
         Aspirant.Email = email
         
         # Commiting to the database
-        session.add(Aspirant)
-        session.commit()
+        try:
+            session.add(Aspirant)
+            session.commit()
+        except PendingRollbackError:
+            session.rollback()
+            session.add(Aspirant)
+            session.commit()
+        except IntegrityError:
+            return "Aspirant Must Be A Registered Voter"
+
 
         return "You have successfully registered aspirant"
+
     return render_template('registration_page_aspirant.html')
 
 
@@ -195,8 +214,16 @@ def register_post():
         post = Post(Post_Name=postname)
 
         # Comitting to database
-        session.add(post)
-        session.commit()
+        try:
+            session.add(post)
+            session.commit()
+        except PendingRollbackError:
+            session.rollback()
+            session.add(post)
+            session.commit()
+        except IntegrityError:
+            return "The post already exists"
+
         return "You have successfully registered the post"
 
     return render_template('post.html')
@@ -209,10 +236,20 @@ def select_asp():
     Takes you to aspirant voting page
     """
     if request.method == 'POST':
+        # print(request.form)
+        # print(list(request.form))
         asp = list(request.form)[0]
+        # print(asp)
         page_to_load = 'vote_' + asp + '.html'
         # print(page_to_load)
-        return render_template(page_to_load)
+        # name = data_with_president_names_????
+        # post_to_display = 'president'
+
+        name = ['Chakulu','Henry','Paul'] # Something like This
+        # data = session.query(Aspirants).filter(Aspirants.post_name == 'president')
+        data = session.query(Aspirants.asp_no, Aspirants.First_Name, Aspirants.Middle_Name, Aspirants.Last_Name).filter(Aspirants.post_name == asp).all()
+        # print(f"this is the data \n\n {data} \n\n")
+        return render_template(page_to_load, candidate_list_president=list(data))
     return render_template('voting_screen.html')
 
 
@@ -228,6 +265,55 @@ def sent_vote():
             print(f"voter submitted Candidate no {choice}")
             return render_template('voting_screen.html')
     return redirect(request.referrer)
+
+@app.route('/vote_president')
+def vote_president():
+    """
+    Takes you to Aspirant page
+    """
+    return render_template('vote_president.html')
+
+
+@app.route('/vote_senator')
+def vote_senator():
+    """
+    Takes you to Aspirant page
+    """
+    return render_template('vote_senator.html')
+
+
+@app.route('/vote_mca')
+def vote_mca():
+    """
+    Takes you to Aspirant page
+    """
+    return render_template('vote_mca.html')
+
+
+@app.route('/vote_mp')
+def vote_mp():
+    """
+    Takes you to Aspirant page
+    """
+    return render_template('vote_mp.html')
+
+
+@app.route('/vote_woman_rep')
+def vote_woman_rep():
+    """
+    Takes you to Aspirant page
+    """
+    return render_template('vote_woman_rep.html')
+
+
+@app.route('/vote_governor')
+def vote_():
+    """
+    Takes you to admin panel
+    """
+    return render_template('vote_governor.html')
+
+
 
 
 @app.route('/admin_panel')

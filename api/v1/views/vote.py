@@ -8,7 +8,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 
 username = 'rod'
-password = 'r'
+password = 'r' 
 str1 = f'mysql://{username}:{password}@localhost:3306/VOTEAPP'  # Holds database info
 engine = create_engine(str1)
 DBSession = sessionmaker(bind=engine)
