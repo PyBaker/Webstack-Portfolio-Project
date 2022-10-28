@@ -56,7 +56,8 @@ def login():
         #return f'{login_password}'
         
         # check if admin -- take to admin panel
-        admin = session.query(Admin).filter(Admin.id == int(login_userid)).first()      
+        admin = session.query(Admin).filter(Admin.id == int(login_userid)).first()
+        #login_user(admin)      
         if admin:
             login_user(admin)
             if admin.Password.decode('ascii') != login_password:
@@ -98,6 +99,7 @@ def logout():
 
 
 @app.route('/register-users', methods=['GET', 'POST'])
+#@login_required
 def register_user():
     """
     Handles registration of users
@@ -361,6 +363,7 @@ def vote_():
 
 
 @app.route('/admin_panel')
+#@login_required
 def admin_panel():
     """
     Takes you to admin panel
