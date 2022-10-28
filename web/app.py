@@ -2,12 +2,13 @@
 Defines routes of the project
 """
 import secrets
+from tkinter import TRUE
 from processpass import encryptpass 
 from sqlalchemy import create_engine
 from sqlalchemy.exc import IntegrityError, PendingRollbackError
 from sqlalchemy.orm import sessionmaker
 from tables import RegisteredVoters, Post, Aspirants, Voters, Admin, myEnum
-from flask import Flask, flash, request, render_template, redirect, make_response, jsonify
+from flask import Flask, flash, request, render_template, redirect, make_response, jsonify, session
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
 # connects to database
@@ -55,11 +56,12 @@ def login():
         #return f'{login_password}'
         
         # check if admin -- take to admin panel
-        admin = session.query(Admin).filter(Admin.id == int(login_userid)).first()        
+        admin = session.query(Admin).filter(Admin.id == int(login_userid)).first()      
         if admin:
+            login_user(admin)
             if admin.Password.decode('ascii') != login_password:
                 return 'Wrong password!'
-            login_user(admin)
+            #login_user(admin)
             return redirect('/admin_panel')
         else:
             # get user
@@ -70,16 +72,17 @@ def login():
             if user.Password.decode('ascii') != login_password:
                 return 'Wrong password!'
 
+            login_user(user)
+
             # comment out
             # login_user(user)
             # return redirect('/voting_screen')
             # Take to voting_screen if casted votes are less that 6
             voter = session.query(Voters).filter(Voters.id == int(login_userid)).first()
             if voter:
-                if voter.Status == myEnum.NV:
-                    login_user(user)
-                    # return redirect('/voting_screen')
-                else:
+                if voter.Status == myEnum.V:
+                    #login_user(user)
+                    #return redirect('/voting_screen')
                     # take to results page??
                     return redirect('/results_page')
             return redirect('/voting_screen')
@@ -101,13 +104,13 @@ def register_user():
     """
 
     # make this page only available to admins -- do the same for the other admin page
-    if request.method == "GET":
+    """if request.method == "GET":
         admin_id = current_user.id
         admin = session.query(Admin).filter(Admin.id == int(admin_id)).first()
         if not admin:
             flash('Admin Page! Please visit the log in page to log in')
             return redirect('/voting_screen')
-            # redirect to voting screen
+            # redirect to voting screen"""
     if request.method == "POST":
         id_no = request.form.get("id_no")
         firstname = request.form.get("first_name").upper()
@@ -238,11 +241,12 @@ def select_asp():
         # data = session.query(Aspirants).filter(Aspirants.post_name == 'president')
         data = session.query(Aspirants.asp_no, Aspirants.First_Name, Aspirants.Middle_Name, Aspirants.Last_Name).filter(Aspirants.post_name == asp).all()
         # print(f"this is the data \n\n {data} \n\n")
-        return render_template(page_to_load, candidate_list_president=list(data))
+        return render_template(page_to_load, candidate_list=list(data))
     return render_template('voting_screen.html')
 
 
 @app.route('/vote/<post_name>', methods=['POST', 'GET'])
+@login_required
 def sent_vote(post_name):
     """
     handles the voting choices
@@ -255,6 +259,13 @@ def sent_vote(post_name):
 
         aspirant = session.query(Aspirants).filter(Aspirants.asp_no == asp_no).first()
         
+        #print(current_user.keys())
+        g_user = current_user.get_id()
+        print(f"user id is: {g_user}")
+        """if current_user.is_authenticated:
+            print("authenticated")
+            g_user = current_user.get_id()
+            print(g_user)"""
         # confirm voter details
         id_no = current_user.id
         reg_no = current_user.reg_no
@@ -363,12 +374,13 @@ def voting_screen():
     """
     Takes you to voting screen
     """
-    return render_template('voting_screen.html',
+    """return render_template('voting_screen.html',
         user_f_name=current_user.First_Name,
         user_l_name=current_user.Last_Name,
         id=current_user.id,
         reg_no=current_user.reg_no
-        )
+        )"""
+    return render_template('voting_screen.html')
 
 
 @app.route('/results_page')
