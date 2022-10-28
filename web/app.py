@@ -32,22 +32,6 @@ def load_user(user_id):
 
     return session.query(RegisteredVoters).filter(RegisteredVoters.id == int(user_id)).first()
 
-# allow both GET and POST requests
-@app.route('/form-example', methods=['GET', 'POST'])
-def form_example():
-    if request.method == 'POST':
-        language = request.form.get('language')
-        framework = request.form.get('framework')
-        return f'''
-        <h1> The Language value is: {language} </h1>
-        <h1> The language value is: {framework} </h1>'''
-    return '''
-              <form method="POST">
-                  <div><label>Language: <input type="text" name="language"></label></div>
-                  <div><label>Framework: <input type="text" name="framework"></label></div>
-                  <input type="submit" value="Submit">
-              </form>'''
-
 
 @app.route('/')
 @app.route('/home')
