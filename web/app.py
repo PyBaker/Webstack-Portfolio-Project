@@ -3,7 +3,7 @@ Defines routes of the project
 """
 import secrets
 from tkinter import TRUE
-from processpass import encryptpass 
+from processpass import encryptpass
 from sqlalchemy import create_engine
 from sqlalchemy.exc import IntegrityError, PendingRollbackError
 from sqlalchemy.orm import sessionmaker
@@ -24,6 +24,11 @@ app.secret_key = secrets.token_bytes()
 # enable user login
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+@app.route('/test')
+def test():
+    flash('How far now')
+    return('/login')
 
 
 # return current user
