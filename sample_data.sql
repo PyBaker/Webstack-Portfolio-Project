@@ -1,6 +1,6 @@
-insert into ADMIN (890000,"Rodney", "Mwanje", "Luguyesi", "Likuyani", "Okelo", "rodney002mwanje@gmail.com");
-insert into ADMIN (890001,"Beldine", "Moturi", "Bella", "Longonot", "Royco", "beldine001moturi@gmail.com");
-insert into ADMIN (890002,"Shaun", "Mak", "King", "Lagos", "OneSoftware", "pyBaker003@gmail.com");
+insert into ADMIN VALUES (890000,"Rodney", "Mwanje", "Luguyesi", "Likuyani", "Okelo", "rodney002mwanje@gmail.com");
+insert into ADMIN VALUES (890001,"Beldine", "Moturi", "Bella", "Longonot", "Royco", "beldine001moturi@gmail.com");
+insert into ADMIN VALUES (890002,"Shaun", "Mak", "King", "Lagos", "OneSoftware", "pyBaker003@gmail.com");
 insert into REGISTERED_VOTERS VALUES (823001,"Jessica", "Gatura", "Nzembi", "Kileleshwa", "catnoir", "jessnzembi@gmail.com");
 insert into REGISTERED_VOTERS VALUES (823002,"Richard", "Shigali", "Luguyesi", "Narok", "family", "shigalison@gmail.com");
 insert into REGISTERED_VOTERS VALUES (823003,"Alvin", "Obuya", "", "Kisumu", "chemistry", "alvinobuya@gmail.com");
