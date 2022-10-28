@@ -2,14 +2,15 @@
 Defines routes of the project
 """
 import secrets
-from tkinter import TRUE
-from processpass import encryptpass
+# from tkinter import TRUE ? QUESTION
+from .processpass import encryptpass
 from sqlalchemy import create_engine
 from sqlalchemy.exc import IntegrityError, PendingRollbackError
 from sqlalchemy.orm import sessionmaker
-from tables import RegisteredVoters, Post, Aspirants, Voters, Admin, myEnum
+from .tables import RegisteredVoters, Post, Aspirants, Voters, Admin, myEnum
 from flask import Flask, flash, request, render_template, redirect, make_response, jsonify, session
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+import flask_login 
 
 # connects to database
 username = 'rod'
