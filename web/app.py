@@ -319,6 +319,7 @@ def sent_vote(post_name):
                 return redirect('/voting_screen')"""
         # vote
         setattr(voter, post_name, True)
+        session.commit()
             # increase aspirant number of votes
         if aspirant.no_of_votes == None:
             aspirant.no_of_votes = 1
@@ -328,11 +329,13 @@ def sent_vote(post_name):
         # if fully voted after this, change status to V
         status = 0
         for post in ["president", "senator", "governor", "mp"]:
-            print(getattr(voter, post))
-            if getattr(voter, post) == 1:
+            #print(getattr(voter, post))
+            if getattr(voter, post) == 0:
                 status = 1
+                break
         if status == 0:
             voter.Status = myEnum.V
+            session.commit()
             return redirect('/results_page')
         
         session.commit()
