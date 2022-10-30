@@ -29,6 +29,8 @@
 </head>
 
 <body>
+
+
     <section class="vh-100" style="background-color: #01531a; 
     background-image: url(./young_voters.webp);
     background-size:cover;
@@ -61,100 +63,307 @@
                                             Your Vote Counts
                                         </span>
                                     </div>
+                                    <!--
                                     <div class="mx-auto row mt-1 justify-content-center h1 shadow-lg text-bg-light">
                                         Results Page. Click Contestant List To See Results
                                     </div>
+                                    -->
+                                    <div class="mx-auto row mt-1 justify-content-center h1 shadow-lg text-bg-light">
+                                        Results Page. Below are the results of the Elections
+                                    </div>
+                                    <div class="col text-center">
 
+                                        <div class="card mb-3" style="max-width: 100%;">
+                                            <div class="row g-0">
+                                                <div class="col-md-4">
+                                                    <!--
+                                                    <img src="{{ candidate_update['president'][0][0] }}"
+                                                        class="img-fluid rounded-start" alt="...">
+                                                    -->
+
+                                                    <img src="https://pyxis.nymag.com/v1/imgs/0f0/be0/7d4992df6eb4d08e26bbe239f1d0d83f3d-trump-chait-issue-2.rsquare.w700.jpg"
+                                                        class="img-fluid rounded-start" style="max-width: 45%;"
+                                                        alt="...">
+
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Presidential Post Update</h5>
+                                                        <p class="card-text">
+                                                            <strong>{{ candidate_update['president'][0][1] }}</strong>
+                                                            has
+                                                            {{ candidate_update['president'][0][] }}
+                                                            votes </p>
+                                                        <p class="card-text">
+                                                            <small class="text-muted"></small>
+
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card mb-3" style="max-width: 100%;">
+                                            <div class="row g-0">
+                                                <div class="col-md-4">
+                                                    <!--
+                                                    <img src="{{ candidate_update['president'][1][0] }}.png"
+                                                        class="img-fluid rounded-start" alt="...">
+-->
+                                                    <img src="https://pyxis.nymag.com/v1/imgs/0f0/be0/7d4992df6eb4d08e26bbe239f1d0d83f3d-trump-chait-issue-2.rsquare.w700.jpg"
+                                                        class="img-fluid rounded-start" style="max-width: 45%;"
+                                                        alt="...">
+
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="card-body">
+                                                        <p class="card-text">
+                                                            <strong>{{ candidate_update['president'][1][1] }}</strong>
+                                                            has
+                                                            {{ candidate_update['president'][1][2] }}
+                                                            votes </p>
+                                                        <p class="card-text">
+                                                            <small class="text-muted"></small>
+
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card mb-3" style="max-width: 100%;">
+                                            <div class="row g-0">
+                                                <div class="col-md-4">
+                                                    <!--
+                                                    <img src="{{ candidate_update['president'][2][0] }}.png"
+                                                        class="img-fluid rounded-start" alt="...">
+-->
+                                                    <img src="https://pyxis.nymag.com/v1/imgs/0f0/be0/7d4992df6eb4d08e26bbe239f1d0d83f3d-trump-chait-issue-2.rsquare.w700.jpg"
+                                                        class="img-fluid rounded-start" style="max-width: 45%;"
+                                                        alt="...">
+
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="card-body">
+                                                        <p class="card-text">
+                                                            <strong>{{ candidate_update['president'][2][1] }}</strong>
+                                                            has
+                                                            {{ candidate_update['president'][2][2] }}
+                                                            votes </p>
+                                                        <p class="card-text">
+                                                            <small class="text-muted"></small>
+
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card mb-3" style="max-width: 100%;">
+                                            <div class="row g-0">
+                                                <div class="col-md-4">
+                                                    <!--
+                                                    <img src="{{ candidate_update['president'][3][0] }}.png"
+                                                        class="img-fluid rounded-start" alt="...">
+-->
+                                                    <img src="https://pyxis.nymag.com/v1/imgs/0f0/be0/7d4992df6eb4d08e26bbe239f1d0d83f3d-trump-chait-issue-2.rsquare.w700.jpg"
+                                                        class="img-fluid rounded-start" style="max-width: 45%;"
+                                                        alt="...">
+
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="card-body">
+                                                        <p class="card-text">
+                                                            <strong>{{ candidate_update['president'][3][1] }}</strong>
+                                                            has
+                                                            {{ candidate_update['president'][3][2] }}
+                                                            votes </p>
+                                                        <p class="card-text">
+                                                            <small class="text-muted"></small>
+
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
 
                                     <div class="row mt-4 justify-content-around btn-block">
                                         <div class="col">
 
-                                            <div class="row">
-                                                <div class="btn-group">
-                                                    <button class="row m-1 btn btn-dark 
-                                                    btn-lg w-50" id="presidential" value="presidential">Presidential
-                                                    </button>
+                                            <div class='text-center'>
+                                                <h2>See Other Results</h2>
+                                                <div class="row">
+                                                    <div class="btn-group">
+                                                        <button class="row m-1 btn btn-dark 
+                                                    btn-lg w-50" id="presidential" value="presidential" type="button"
+                                                            data-bs-toggle="collapse"
+                                                            data-bs-target="#multiCollapseExample1"
+                                                            aria-expanded="false"
+                                                            aria-controls="multiCollapseExample1">Presidential
 
-                                                    <button class="row m-1 btn btn-dark 
-                                                    btn-lg w-50" id="governor" value="governor">Governor</button>
-                                                </div>
-                                                <div class="btn-group">
-                                                    <button class="row m-1 btn btn-dark 
-                                                    btn-lg w-50" id="senator" value="senator">Senator
-                                                    </button>
+                                                        </button>
 
-                                                    <button class="row m-1 btn btn-dark 
-                                                    btn-lg w-50" id="woman_rep" value="woman_rep">Woman Rep</button>
-                                                </div>
-                                                <div class="btn-group">
-                                                    <button class="row m-1 btn btn-dark 
-                                                    btn-lg w-50" id="mp" value="mp">MP
-                                                    </button>
+                                                        <button class="row m-1 btn btn-dark 
+                                                    btn-lg w-50" id="governor" value="governor" type="button"
+                                                            data-bs-toggle="collapse"
+                                                            data-bs-target="#multiCollapseExample2"
+                                                            aria-expanded="false"
+                                                            aria-controls="multiCollapseExample2">Governor</button>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="collapse multi-collapse"
+                                                                id="multiCollapseExample1">
+                                                                <div class="card card-body">
+                                                                    {% for candidate in candidate_update['president'] %}
+                                                                    <strong>{{ candidate[1] }}</strong> has
+                                                                    {{ candidate[2] }}
+                                                                    {%endfor%%}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="collapse multi-collapse"
+                                                                id="multiCollapseExample2">
+                                                                <div class="card card-body">
+                                                                    {% for candidate in candidate_update['governor'] %}
+                                                                    <strong>{{ candidate[1] }}</strong> has
+                                                                    {{ candidate[2] }}
+                                                                    {%endfor%%}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-                                                    <button class="row m-1 btn btn-dark 
-                                                    btn-lg w-50" id="mca" value="mca">MCA</button>
+
+                                                    <div class="btn-group">
+
+                                                    </div>
+
+                                                    <div class="btn-group">
+                                                        <button class="row m-1 btn btn-dark 
+                                                    btn-lg w-50" id="senator" value="senator" type="button"
+                                                            data-bs-toggle="collapse"
+                                                            data-bs-target="#multiCollapseExample3"
+                                                            aria-expanded="false"
+                                                            aria-controls="multiCollapseExample3">Senator
+
+                                                        </button>
+
+                                                        <button class="row m-1 btn btn-dark 
+                                                    btn-lg w-50" id="mp" value="mp" type="button"
+                                                            data-bs-toggle="collapse"
+                                                            data-bs-target="#multiCollapseExample4"
+                                                            aria-expanded="false"
+                                                            aria-controls="multiCollapseExample4">MP</button>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="collapse multi-collapse"
+                                                                id="multiCollapseExample3">
+                                                                <div class="card card-body">
+                                                                    {% for candidate in candidate_update['senator'] %}
+                                                                    <strong>{{ candidate[1] }}</strong> has
+                                                                    {{ candidate[2] }}
+                                                                    {%endfor%%}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="collapse multi-collapse"
+                                                                id="multiCollapseExample4">
+                                                                <div class="card card-body">
+                                                                    {% for candidate in candidate_update['mp'] %}
+                                                                    <strong>{{ candidate[1] }}</strong> has
+                                                                    {{ candidate[2] }}
+                                                                    {%endfor%%}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <!--
+                                                        <p>
+                                                        <a class="btn btn-primary" data-bs-toggle="collapse"
+                                                            href="#multicollapseexample1" role="button"
+                                                            aria-expanded="false"
+                                                            aria-controls="multicollapseexample1">Toggle first
+                                                            element</a>
+                                                        <button class="btn btn-primary" type="button"
+                                                            data-bs-toggle="collapse"
+                                                            data-bs-target="#multiCollapseExample2"
+                                                            aria-expanded="false"
+                                                            aria-controls="multiCollapseExample2">Toggle second
+                                                            element</button>
+
+                                                    </p>
+                                                    -->
+
+
+
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
-
-
-                                    <divj class="mt-4">
-                                        <div class="form-group row">
-                                            <label for="staticemail" class="col col-form-label">Voter
-                                                Turnout</label>
-                                            <div class="col btn btn-light btn-outline-info">
-                                                <input type="text" readonly class="form-control-plaintext"
-                                                    id="staticemail" value="Number Percentage">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mt-3 ">
-                                            <label for="staticemail" class="col col-form-label">Total Registered
-                                                Voters
-                                            </label>
-                                            <div class="col btn btn-light btn-outline-info">
-                                                <input type="text" readonly class="form-control-plaintext"
-                                                    id="total_number_voters" value="Number">
-                                            </div>
-                                        </div>
-
-                                    </divj <div class="row">
-                                    <div class="form-group row mt-3 ">
-                                        <label for="staticemail" class="col col-form-label">Time Remaining for Polls to
-                                            Closes
-                                        </label>
-                                        <div class="col text-center">
-                                            <button class="row pulse-primary col btn mt-1 
-                                                btn-light btn-lg btn-outline-danger " type="button">time
-                                                remaining 03d-21hrs</button> </div>
-                                    </div>
-                                    <div class="form-group row mt-3 ">
-                                        <label for="staticemail" class="col col-form-label">If you haven't voted tap or
-                                            click the below button to go to login page </label>
-                                        <div class="col text-center">
-                                            <a class="row mt-1 btn btn-primary btn-lg link-to-login"
-                                                href="./login_page.html">Go to login page to vote
-                                            </a>
-                                        </div>
-                                    </div>
-
-
-
                                 </div>
-                                <div class="row mt-5">
-                                    <a href="#!" class="small text-muted">terms of use.</a>
-                                    <a href="#!" class="small text-muted">privacy policy</a>
-                                </div>
-
-
-
-
                             </div>
+
+                            <divj class="mt-4">
+                                <divj class="mt-4">
+                                    <div class="form-group row">
+                                        <label for="staticemail" class="col col-form-label">Voter
+                                            Turnout</label>
+                                        <div class="col btn btn-light btn-outline-info">
+                                            <input type="text" readonly class="form-control-plaintext" id="staticemail"
+                                                value="{{ voters }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mt-3 ">
+                                        <label for="staticemail" class="col col-form-label">Total Registered
+                                            Voters
+                                        </label>
+                                        <div class="col btn btn-light btn-outline-info">
+                                            <input type="text" readonly class="form-control-plaintext"
+                                                id="total_number_voters" value="{{ registered_v }}">
+                                        </div>
+                                    </div>
+                                </divj <div class="row">
+                            </divj <div class="row">
+                            <div class="form-group row mt-3 ">
+                                <label for="staticemail" class="col col-form-label">Time Remaining for Polls to
+                                    Closes
+                                </label>
+                                <div class="col text-center">
+                                    <button class="row pulse-danger col btn mt-1 
+                                                btn-danger btn-lg btn-outline-danger " type="button" id="vt">time
+                                        remaining</button> </div>
+                            </div>
+                            <div class="form-group row mt-3 ">
+                                <label for="staticemail" class="col col-form-label">If you haven't voted tap or
+                                    click the below button to go to login page </label>
+                                <div class="col text-center">
+                                    <a class="row mt-1 btn btn-primary btn-lg link-to-login" href="./login_page.html">Go
+                                        to login page to vote
+                                    </a>
+                                </div>
+                            </div>
+
+
+
                         </div>
+                        <div class="row mt-5">
+                            <a href="#!" class="small text-muted">terms of use.</a>
+                            <a href="#!" class="small text-muted">privacy policy</a>
+                        </div>
+
+
+
                     </div>
                 </div>
             </div>
+        </div>
+        </div>
         </div>
         </div>
     </section>

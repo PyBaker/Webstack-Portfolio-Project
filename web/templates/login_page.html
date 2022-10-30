@@ -33,6 +33,9 @@
     -->
 
 <body>
+
+
+
     <section class="vh-100" style="background-color: #01531a; 
     background-image: url('../static/images/young_voters.webp');
     background-size:cover;
@@ -56,23 +59,27 @@
                                     <div class="d-flex align-items-center mb-3 pb-1">
                                         <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
                                         <span class="h1 fw-bold mb-0">E-Vote
-
+                                            <h5 class="slogan_main fw-normal mb-3 pb-3">Your vote
+                                                counts
+                                            </h5>
 
                                             <!-- 
                                                 <button class="btn btn-light btn-lg btn-outline-danger btn-block"
                                                     type="button">time
                                                     remaining 03d-21hrs</button>
                                                 -->
-                                            <button id="vote-t"
-                                                class="btn btn-light btn-lg btn-outline-danger btn-block"
-                                                type="button">Time Remaining 2d 5hrs</button>
+
+                                            <div class="col text-center">
+                                                <button class="row pulse-danger col btn mt-1 
+                                                btn-danger btn-lg btn-outline-danger " type="button" id="vt">time
+                                                    remaining</button> </div>
+
+
 
                                         </span>
                                     </div>
 
-                                    <h5 class="slogan_main fw-normal mb-3 pb-3">Your vote
-                                        counts
-                                    </h5>
+
 
                                     <form action="./login" method="POST">
                                         <div class="form-outline">
