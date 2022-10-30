@@ -3,11 +3,11 @@ Defines routes of the project
 """
 import secrets
 # from tkinter import TRUE ? QUESTION
-from .processpass import encryptpass
+from processpass import encryptpass
 from sqlalchemy import create_engine
 from sqlalchemy.exc import IntegrityError, PendingRollbackError
 from sqlalchemy.orm import sessionmaker
-from .tables import RegisteredVoters, Post, Aspirants, Voters, Admin, myEnum
+from tables import RegisteredVoters, Post, Aspirants, Voters, Admin, myEnum
 from flask import Flask, flash, request, render_template, redirect, make_response, jsonify, session
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 import flask_login 
@@ -424,8 +424,8 @@ def results_page():
     # get results for all posts and candidates in each post
     def votes(my_list):
         """display votes"""
-        if my_list[3] is None:
-            my_list[3] = 0
+        if my_list[4] is None:
+            my_list[4] = 0
 
     my_dict = {}
 
@@ -448,14 +448,14 @@ def results_page():
     senators = list(map(lambda x: list(x), list(s_query)))
     for s in senators:
         votes(s)
-    my_dict['senators'] = senators
+    my_dict['senator'] = senators
 
     # mp
     m_query = session.query(Aspirants.id, Aspirants.First_Name, Aspirants.Middle_Name, Aspirants.Last_Name, Aspirants.no_of_votes).filter(Aspirants.post_name == "MP").order_by(Aspirants.no_of_votes).all()
     mps = list(map(lambda x: list(x), list(m_query)))
     for m in mps:
         votes(m)
-    my_dict['mps'] = mps
+    my_dict['mp'] = mps
 
 
     # get voter turnout - number of people who voted
