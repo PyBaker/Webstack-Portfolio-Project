@@ -3,11 +3,11 @@ Defines routes of the project
 """
 import secrets
 # from tkinter import TRUE ? QUESTION
-from .processpass import encryptpass
+from processpass import encryptpass
 from sqlalchemy import create_engine
 from sqlalchemy.exc import IntegrityError, PendingRollbackError
 from sqlalchemy.orm import sessionmaker
-from .tables import RegisteredVoters, Post, Aspirants, Voters, Admin, myEnum
+from tables import RegisteredVoters, Post, Aspirants, Voters, Admin, myEnum
 from flask import Flask, flash, request, render_template, redirect, make_response, jsonify, session
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 import flask_login 
@@ -86,7 +86,7 @@ def login():
             # return redirect('/voting_screen')
             # Take to voting_screen if casted votes are less that 6
             voter = session.query(Voters).filter(Voters.id == int(login_userid)).first()
-            print(voter.Status)
+            #print(voter.Status)
             if voter:
                 if voter.Status == myEnum.V:
                     #login_user(user)
@@ -240,23 +240,25 @@ def select_asp():
         # print(request.form)
         # print(list(request.form))
         asp = list(request.form)[0]
-        print(asp)
+        # print(asp)
         page_to_load = 'vote_' + asp + '.html'
         # print(page_to_load)
         # name = data_with_president_names_????
         # post_to_display = 'president'
 
-        # check if voter is fully voted
-        if voter.Status == myEnum.V:
-            flash('Already completed voting')
-            return redirect('/results_page')
-
-        # check if voter voted for this candidate
         id = current_user.id
         voter = session.query(Voters).filter(Voters.id == id).first()
-        if getattr(voter, asp) is True:
-            flash('Cannot vote for this candidate twice')
-            return redirect('/voting_screen')
+        
+        if voter:
+            # check if voter is fully voted
+            if voter.Status == myEnum.V:
+                flash('Already completed voting')
+                return redirect('/results_page')
+
+            # check if voter voted for this candidate
+            if getattr(voter, asp) is True:
+                flash('Cannot vote for this candidate twice')
+                return redirect('/voting_screen')
 
         #name = ['Chakulu','Henry','Paul'] # Something like This
         # data = session.query(Aspirants).filter(Aspirants.post_name == 'president')
@@ -303,6 +305,7 @@ def sent_vote(post_name):
             session.add(voter)
             session.commit()
         else:
+            pass
             # check if fully voted -- moved this to select_asp route/ already in login route
             """print(voter.Status)
             if voter.Status == myEnum.V:
@@ -314,25 +317,23 @@ def sent_vote(post_name):
             if getattr(voter, post_name) is True:
                 flash('Cannot vote for this candidate twice')
                 return redirect('/voting_screen')"""
-            # vote
-            setattr(voter, post_name, True)
+        # vote
+        setattr(voter, post_name, True)
             # increase aspirant number of votes
-            if aspirant.no_of_votes:
-                aspirant.no_of_votes += 1
-            else:
-                aspirant.no_of_votes = 1
+        if aspirant.no_of_votes == None:
+            aspirant.no_of_votes = 1
+        else:
+            aspirant.no_of_votes += 1
 
-            # if fully voted after this, change status to V
-            status = 0
-            for post in ["president", "senator", "governor", "mp"]:
-                print(type(post))
-                print(post)
-                # print(getattr(voter, post))
-                if getattr(voter, post) is False:
-                    status = 1
-            if status == 0:
-                voter.Status = myEnum.V
-                return redirect('/results_page')
+        # if fully voted after this, change status to V
+        status = 0
+        for post in ["president", "senator", "governor", "mp"]:
+            print(getattr(voter, post))
+            if getattr(voter, post) == 1:
+                status = 1
+        if status == 0:
+            voter.Status = myEnum.V
+            return redirect('/results_page')
         
         session.commit()
     return redirect(request.referrer)
@@ -416,7 +417,18 @@ def results_page():
     """
     Handles Results page
     """
-    return render_template('results_page.html')
+
+    # get results for all posts and candidates in each post
+    # president
+    president = session.query(Aspirants.First_Name, Aspirants.Middle_Name, Aspirants.Last_Name, Aspirants.no_of_votes).filter(Aspirants.post_name == "President").order_by(Aspirants.no_of_votes).all()
+
+    # get voter turnout - number of people who voted
+    voters = session.query(Voters).count()
+
+    # get number of total registered voters
+    registered_v = session.query(RegisteredVoters).count()
+
+    return render_template('results_page.html', registered_v=registered_v, voters=voters)
 
 if __name__ == "__main__":
     app.run(port=5000)
