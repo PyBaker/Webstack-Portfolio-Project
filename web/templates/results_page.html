@@ -90,7 +90,7 @@
                                                     <div class="card-body">
                                                         <h5 class="card-title">Presidential Post Update</h5>
                                                         <p class="card-text">
-                                                            <strong>{{ candidate_update['president'][0][1] candidate_update['president'][0][2]  candidate_update['president'][0][3] }}</strong>
+                                                            <strong>{{ candidate_update['president'][0][1] + ' ' + candidate_update['president'][0][2]  + ' ' +  candidate_update['president'][0][3] }}</strong>
                                                             has
                                                             {{ candidate_update['president'][0][4] }}
                                                             votes </p>
@@ -117,7 +117,7 @@
                                                 <div class="col-md-8">
                                                     <div class="card-body">
                                                         <p class="card-text">
-                                                            <strong>{{ candidate_update['president'][0][1] candidate_update['president'][0][2]  candidate_update['president'][0][3] }}</strong>
+                                                            <strong>{{ candidate_update['president'][0][1] + ' ' +  candidate_update['president'][0][2] + ' ' +   candidate_update['president'][0][3] }}</strong>
                                                             has
                                                             {{ candidate_update['president'][0][4] }}
                                                             votes </p>
@@ -144,7 +144,7 @@
                                                 <div class="col-md-8">
                                                     <div class="card-body">
                                                         <p class="card-text">
-                                                            <strong>{{ candidate_update['president'][0][1] candidate_update['president'][0][2]  candidate_update['president'][0][3] }}</strong>
+                                                            <strong>{{ candidate_update['president'][0][1] + ' ' +  candidate_update['president'][0][2] + ' ' +   candidate_update['president'][0][3] }}</strong>
                                                             has
                                                             {{ candidate_update['president'][0][4] }}
                                                             votes </p>
@@ -171,7 +171,7 @@
                                                 <div class="col-md-8">
                                                     <div class="card-body">
                                                         <p class="card-text">
-                                                            <strong>{{ candidate_update['president'][0][1] candidate_update['president'][0][2]  candidate_update['president'][0][3] }}</strong>
+                                                            <strong>{{ candidate_update['president'][0][1] + ' ' +  candidate_update['president'][0][2] + ' ' +   candidate_update['president'][0][3] }}</strong>
                                                             has
                                                             {{ candidate_update['president'][0][4] }}
                                                             votes </p>
@@ -215,7 +215,7 @@
                                                                 id="multiCollapseExample1">
                                                                 <div class="card card-body">
                                                                     {% for candidate in candidate_update['president'] %}
-                                                                    <strong>{{ candidate[1] candidate[2] candidate[3] }}</strong>
+                                                                    <strong>{{ candidate[1] + ' ' +  candidate[2] + ' ' +  candidate[3] }}</strong>
                                                                     has
                                                                     {{ candidate[4] }}
                                                                     {%endfor%}
@@ -227,7 +227,7 @@
                                                                 id="multiCollapseExample2">
                                                                 <div class="card card-body">
                                                                     {% for candidate in candidate_update['governor'] %}
-                                                                    <strong>{{ candidate[1] candidate[2] candidate[3] }}</strong>
+                                                                    <strong>{{ candidate[1] + ' ' +  candidate[2] + ' ' +  candidate[3] }}</strong>
                                                                     has
                                                                     {{ candidate[4] }}
                                                                     {%endfor%}
@@ -265,7 +265,7 @@
                                                                 id="multiCollapseExample3">
                                                                 <div class="card card-body">
                                                                     {% for candidate in candidate_update['senator'] %}
-                                                                    <strong>{{ candidate[1] candidate[2] candidate[3]}}</strong>
+                                                                    <strong>{{ candidate[1] + ' ' +  candidate[2] + ' ' +  candidate[3]}}</strong>
                                                                     has
                                                                     {{ candidate[4] }}
                                                                     {%endfor%}
@@ -277,7 +277,7 @@
                                                                 id="multiCollapseExample4">
                                                                 <div class="card card-body">
                                                                     {% for candidate in candidate_update['mp'] %}
-                                                                    <strong>{{ candidate[1] candidate[2] candidate[3]}}</strong>
+                                                                    <strong>{{ candidate[1] + ' ' +  candidate[2] + ' ' +  candidate[3]}}</strong>
                                                                     has
                                                                     {{ candidate[4] }}
                                                                     {%endfor%}
