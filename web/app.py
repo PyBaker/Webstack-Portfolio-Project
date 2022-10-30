@@ -10,11 +10,11 @@ from sqlalchemy.orm import sessionmaker
 from tables import RegisteredVoters, Post, Aspirants, Voters, Admin, myEnum
 from flask import Flask, flash, request, render_template, redirect, make_response, jsonify, session
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
-import flask_login 
+import flask_login
 
 # connects to database
 username = 'rod'
-password = 'r' 
+password = 'r'
 str1 = f'mysql://{username}:{password}@localhost:3306/VOTEAPP'  # Holds database info
 engine = create_engine(str1)
 DBSession = sessionmaker(bind=engine)
@@ -60,10 +60,10 @@ def login():
         login_userid = request.form.get('user_id')
         #print(type(login_password))
         #return f'{login_password}'
-        
+
         # check if admin -- take to admin panel
         admin = session.query(Admin).filter(Admin.id == int(login_userid)).first()
-        #login_user(admin)      
+        #login_user(admin)
         if admin:
             login_user(admin)
             if admin.Password.decode('ascii') != login_password:
@@ -138,7 +138,7 @@ def register_user():
         User.Location = location
         User.Password = encryptpass(password)
         User.Email = email
-        
+
         # Comitting User to database
         try:
             session.add(User)
@@ -185,7 +185,7 @@ def register_aspirants():
         Aspirant.Last_Name = lastname
         Aspirant.Location = location
         Aspirant.Email = email
-        
+
         # Commiting to the database
         try:
             session.add(Aspirant)
@@ -248,7 +248,7 @@ def select_asp():
 
         id = current_user.id
         voter = session.query(Voters).filter(Voters.id == id).first()
-        
+
         if voter:
             # check if voter is fully voted
             if voter.Status == myEnum.V:
@@ -276,12 +276,12 @@ def sent_vote(post_name):
     """
     #print(request.form['uo'])
     #print(post_name)
-    if request.method == 'POST':    
+    if request.method == 'POST':
     # confirm aspirants  and post details
         asp_no = int(request.form['uo'])
 
         aspirant = session.query(Aspirants).filter(Aspirants.asp_no == asp_no).first()
-        
+
         #print(current_user.keys())
         g_user = current_user.get_id()
         # print(f"user id is: {g_user}")
@@ -337,7 +337,7 @@ def sent_vote(post_name):
             voter.Status = myEnum.V
             session.commit()
             return redirect('/results_page')
-        
+
         session.commit()
     return redirect(request.referrer)
 

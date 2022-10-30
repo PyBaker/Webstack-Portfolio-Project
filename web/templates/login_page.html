@@ -59,6 +59,18 @@
                                     <div class="d-flex align-items-center mb-3 pb-1">
                                         <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
                                         <span class="h1 fw-bold mb-0">E-Vote
+
+
+                                            {% with messages = get_flashed_messages() %}
+                                            {% if messages %}
+                                            <div class=flashes>
+                                                {% for message in messages %}
+                                                <h1>{{ message }}</h1>
+                                                {% endfor %}
+                                            </div>
+                                            {% endif %}
+                                            {% endwith %}
+
                                             <h5 class="slogan_main fw-normal mb-3 pb-3">Your vote
                                                 counts
                                             </h5>
