@@ -38,7 +38,6 @@ class BaseModel():
         return my_dict
 
 
-
 class myEnum(enum.Enum):
     """
     Defines enums to be used in the status
