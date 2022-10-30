@@ -422,8 +422,41 @@ def results_page():
     """
 
     # get results for all posts and candidates in each post
+    def votes(my_list):
+        """display votes"""
+        if my_list[3] is None:
+            my_list[3] = 0
+
+    my_dict = {}
+
     # president
-    president = session.query(Aspirants.First_Name, Aspirants.Middle_Name, Aspirants.Last_Name, Aspirants.no_of_votes).filter(Aspirants.post_name == "President").order_by(Aspirants.no_of_votes).all()
+    p_query = session.query(Aspirants.id, Aspirants.First_Name, Aspirants.Middle_Name, Aspirants.Last_Name, Aspirants.no_of_votes).filter(Aspirants.post_name == "President").order_by(Aspirants.no_of_votes).all()
+    presidents = list(map(lambda x: list(x), list(p_query)))
+    for p in presidents:
+        votes(p)
+    my_dict['president'] = presidents
+
+    # governor
+    g_query = session.query(Aspirants.id, Aspirants.First_Name, Aspirants.Middle_Name, Aspirants.Last_Name, Aspirants.no_of_votes).filter(Aspirants.post_name == "Governor").order_by(Aspirants.no_of_votes).all()
+    governors = list(map(lambda x: list(x), list(g_query)))
+    for g in governors:
+        votes(g)
+    my_dict['governor'] = governors
+
+    # senator
+    s_query = session.query(Aspirants.id, Aspirants.First_Name, Aspirants.Middle_Name, Aspirants.Last_Name, Aspirants.no_of_votes).filter(Aspirants.post_name == "Senator").order_by(Aspirants.no_of_votes).all()
+    senators = list(map(lambda x: list(x), list(s_query)))
+    for s in senators:
+        votes(s)
+    my_dict['senators'] = senators
+
+    # mp
+    m_query = session.query(Aspirants.id, Aspirants.First_Name, Aspirants.Middle_Name, Aspirants.Last_Name, Aspirants.no_of_votes).filter(Aspirants.post_name == "MP").order_by(Aspirants.no_of_votes).all()
+    mps = list(map(lambda x: list(x), list(m_query)))
+    for m in mps:
+        votes(m)
+    my_dict['mps'] = mps
+
 
     # get voter turnout - number of people who voted
     voters = session.query(Voters).count()
@@ -431,7 +464,7 @@ def results_page():
     # get number of total registered voters
     registered_v = session.query(RegisteredVoters).count()
 
-    return render_template('results_page.html', registered_v=registered_v, voters=voters)
+    return render_template('results_page.html', registered_v=registered_v, voters=voters, candidate_update=my_dict)
 
 if __name__ == "__main__":
     app.run(port=5000)
