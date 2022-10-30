@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>E-Vote</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pulse.css') }}">
+    <script src="{{ url_for('static',filename='js/bootstrap.bundle.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="{{ url_for('static',filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static',filename='scripts/aspirants.js') }}"></script>
+
+    <link rel="stylesheet" href="https://raw.githubusercontent.com/zachnietling/bootstrap-pulse/master/pulse.css">
+
+    <!-- For Development -->
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" href="../static/css/pulse.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <script src="../static/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/js/main.js"></script>
+    <!-- End Development -->
+
+
+
+
+</head>
+
+<body>
+
+
+    <section class="vh-100" style="background-color: #01531a; 
+    background-image: url(./young_voters.webp);
+    background-size:cover;
+    background-blend-mode: soft-light;
+    backface-visibility: visible;">
+        <!--section class="overlay-green" style="background-color:#01531a;
+        tranpa"-->
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-xl-10">
+                    <div class="card" style="border-radius: 1rem;">
+                        <div class="row g-0">
+                            <!--
+                            <div class="col-md-6 col-lg-5 d-none d-md-block">
+                                <img src="./e-vote_banner.png" alt="login form" class="img-fluid"
+                                    style="border-radius: 1rem 0 0 1rem;" />
+                            </div>
+-->
+
+                            <!--
+                            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                            -->
+                            <div class="d-flex align-items-center">
+                                <div class="card-body p-4 p-lg-5 text-black">
+                                    <div class="mx-auto d-flex align-items-center mb-3 pb-1">
+                                        <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+                                        <span class="h1 fw-bold mb-0">E-Vote
+                                        </span>
+                                        <span class="slogan_main fw-bold flex-grow-1 h2 align-content-end">
+                                            Your Vote Counts
+                                        </span>
+                                    </div>
+                                    <!--
+                                    <div class="mx-auto row mt-1 justify-content-center h1 shadow-lg text-bg-light">
+                                        Results Page. Click Contestant List To See Results
+                                    </div>
+                                    -->
+                                    <div class="mx-auto row mt-1 justify-content-center h1 shadow-lg text-bg-light">
+                                        Results Page. Below are the results of the Elections
+                                    </div>
+                                    <div class="col text-center">
+                                        <div class="card mb-3" style="max-width: 100%;">
+                                            <div class="row g-0">
+                                                <div class="col-md-4">
+                                                    <img src="{{ winner[0][0] }}" class="img-fluid rounded-start"
+                                                        alt="...">
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Presidential Post Winner</h5>
+                                                        <p class="card-text">{{ winner[0][1] }} is the newly appointed
+                                                            president </p>
+                                                        <p class="card-text">
+                                                            <small class="text-muted"></small>
+
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card mb-3" style="max-width: 100%;">
+                                            <div class="row g-0">
+                                                <div class="col-md-4">
+                                                    <img src="{{ winner[1][0] }}" class="img-fluid rounded-start"
+                                                        alt="...">
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Governor Post Winner</h5>
+                                                        <p class="card-text">{{ winner[1][1] }} is the newly appointed
+                                                            Governor </p>
+                                                        <p class="card-text">
+                                                            <small class="text-muted"></small>
+
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card mb-3" style="max-width: 100%;">
+                                            <div class="row g-0">
+                                                <div class="col-md-4">
+                                                    <img src="{{ winner[2][0] }}" class="img-fluid rounded-start"
+                                                        alt="...">
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Senator Post Winner</h5>
+                                                        <p class="card-text">{{ winner[2][1] }} is the newly appointed
+                                                            Senator </p>
+                                                        <p class="card-text">
+                                                            <small class="text-muted"></small>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card mb-3" style="max-width: 100%;">
+                                            <div class="row g-0">
+                                                <div class="col-md-4">
+                                                    <img src="{{ winner[3][0] }}" class="img-fluid rounded-start"
+                                                        alt="...">
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">MP Post Winner</h5>
+                                                        <p class="card-text">{{ winner[3][1] }} is the newly appointed
+                                                            MP </p>
+                                                        <p class="card-text">
+                                                            <small class="text-muted"></small>
+
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+
+                                    <div class="row mt-4 justify-content-around btn-block">
+                                        <div class="col">
+
+                                            <div class='text-center'>
+                                                <h2>See Other Results</h2>
+                                                <div class="row">
+                                                    <div class="btn-group">
+                                                        <button class="row m-1 btn btn-dark 
+                                                    btn-lg w-50" id="presidential" value="presidential">Presidential
+                                                        </button>
+
+                                                        <button class="row m-1 btn btn-dark 
+                                                    btn-lg w-50" id="governor" value="governor">Governor</button>
+                                                    </div>
+                                                    <div class="btn-group">
+                                                        <button class="row m-1 btn btn-dark 
+                                                    btn-lg w-50" id="senator" value="senator">Senator
+                                                        </button>
+
+                                                        <button class="row m-1 btn btn-dark 
+                                                    btn-lg w-50" id="woman_rep" value="woman_rep">MP</button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                    <divj class="mt-4">
+                                        <div class="form-group row">
+                                            <label for="staticemail" class="col col-form-label">Voter
+                                                Turnout</label>
+                                            <div class="col btn btn-light btn-outline-info">
+                                                <input type="text" readonly class="form-control-plaintext"
+                                                    id="staticemail" value="Number Percentage">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-3 ">
+                                            <label for="staticemail" class="col col-form-label">Total Registered
+                                                Voters
+                                            </label>
+                                            <div class="col btn btn-light btn-outline-info">
+                                                <input type="text" readonly class="form-control-plaintext"
+                                                    id="total_number_voters" value="Number">
+                                            </div>
+                                        </div>
+
+                                    </divj <div class="row">
+                                    <div class="form-group row mt-3 ">
+                                        <label for="staticemail" class="col col-form-label">Time Remaining for Polls to
+                                            Closes
+                                        </label>
+                                        <div class="col text-center">
+                                            <button class="row pulse-danger col btn mt-1 
+                                                btn-danger btn-lg btn-outline-danger " type="button" id="vt">time
+                                                remaining</button> </div>
+                                    </div>
+                                    <div class="form-group row mt-3 ">
+                                        <label for="staticemail" class="col col-form-label">If you haven't voted tap or
+                                            click the below button to go to login page </label>
+                                        <div class="col text-center">
+                                            <a class="row pulse-primary mt-1 btn btn-primary btn-lg link-to-login"
+                                                href="/login">Go to login page to vote
+                                            </a>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                                <div class="row mt-5">
+                                    <a href="#!" class="small text-muted">terms of use.</a>
+                                    <a href="#!" class="small text-muted">privacy policy</a>
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+    <!--/section-->
+</body>
+
+</html>
