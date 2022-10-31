@@ -77,18 +77,12 @@
 
                                         </div>
                                         <form action="{{ url_for("register_post")}}" method="post">
-                                            <label for="postname">Post Name:</label>
-                                            <input type="text" id="postname" name="post_name" placeholder="Postname">
-                                            <button type="submit">Register Post</button>
+                                            <label class="form-label mb-0" for="postname">Post Name:</label>
+                                            <input class="form-control form-control-lg" type="text" id="postname"
+                                                name="post_name" placeholder="Postname">
+                                            <button class="btn btn-primary" type="submit">Register Post</button>
 
-                                            <div class='mb-3'>
-                                                <label class="form-label mb-0" for="firstname">
-                                                    first name
-                                                </label>
-                                                <input type="text" id="firstname" name="first_name"
-                                                    class="form-control form-control-lg"
-                                                    placeholder="enter Firstname..." />
-                                            </div>
+
 
 
 
