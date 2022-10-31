@@ -148,6 +148,7 @@ def register_user():
             session.add(User)
             session.commit()
         except IntegrityError:
+            session.rollback()
             return f"The user {User.First_Name} has already been registered"
 
         return f"You have Successfully Registred {User.First_Name}"
@@ -195,6 +196,7 @@ def register_aspirants():
             session.add(Aspirant)
             session.commit()
         except IntegrityError:
+            session.rollback()
             return "Aspirant Must Be A Registered Voter"
 
 
@@ -223,6 +225,7 @@ def register_post():
             session.add(post)
             session.commit()
         except IntegrityError:
+            session.rollback()
             return "The post already exists"
 
         return "You have successfully registered the post"
