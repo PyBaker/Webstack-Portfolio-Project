@@ -75,9 +75,11 @@ def login():
             user = load_user(int(login_userid))
             #  Check if user in Database and confirm login details
             if not user:
-                return 'Not a registered voter!'
+                flash('Login credentials invalid!')
+                return redirect(request.referrer)
             if user.Password.decode('ascii') != login_password:
-                return 'Wrong password!'
+                flash('Login credentials invalid!')
+                return redirect(request.referrer)
 
             login_user(user)
 
