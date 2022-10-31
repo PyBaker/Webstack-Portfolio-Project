@@ -67,7 +67,7 @@ def login():
         if admin:
             login_user(admin)
             if admin.Password.decode('ascii') != login_password:
-                return 'Wrong password!'
+                flash('Login credentials invalid!')
             #login_user(admin)
             return redirect('/admin_panel')
         else:
