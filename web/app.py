@@ -152,9 +152,11 @@ def register_user():
             session.commit()
         except IntegrityError:
             session.rollback()
-            return f"The user {User.First_Name} has already been registered"
+            flash(f"The user {User.First_Name} has already been registered")
+            return redirect(request.referrer)
 
-        return f"You have Successfully Registred {User.First_Name}"
+        flash(f"You have Successfully Registred {User.First_Name}")
+        return redirect(request.referrer)
 
     return render_template('registration_page.html')
 
@@ -177,7 +179,8 @@ def register_aspirants():
 
         #Query database for post names
         if session.query(Post).filter(Post.Post_Name == postname).first() is None:
-            return "Post is yet to be registered"
+            flash("Post is yet to be registered")
+            return redirect(request.referrer)
 
         # Writing to the database
         # get aspirant from registered voters -- check if exists
@@ -200,10 +203,12 @@ def register_aspirants():
             session.commit()
         except IntegrityError:
             session.rollback()
-            return "Aspirant Must Be A Registered Voter"
+            flash("Aspirant Must Be A Registered Voter")
+            return redirect(request.referrer)
 
 
-        return "You have successfully registered aspirant"
+        flash("You have successfully registered aspirant")
+        return redirect(request.referrer)
 
     return render_template('registration_page_aspirant.html')
 
@@ -229,9 +234,11 @@ def register_post():
             session.commit()
         except IntegrityError:
             session.rollback()
-            return "The post already exists"
+            flash("The post already exists")
+            return redirect(request.referrer)
 
-        return "You have successfully registered the post"
+        flash("You have successfully registered the post")
+        return redirect(request.referrer)
 
     return render_template('post.html')
 
