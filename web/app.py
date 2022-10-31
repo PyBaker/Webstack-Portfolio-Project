@@ -65,10 +65,11 @@ def login():
         admin = session.query(Admin).filter(Admin.id == int(login_userid)).first()
         #login_user(admin)
         if admin:
-            login_user(admin)
+            #login_user(admin)
             if admin.Password.decode('ascii') != login_password:
                 flash('Login credentials invalid!')
-            #login_user(admin)
+                return redirect(request.referrer)
+            login_user(admin)
             return redirect('/admin_panel')
         else:
             # get user
