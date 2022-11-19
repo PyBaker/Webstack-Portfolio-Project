@@ -57,5 +57,5 @@ flask --app web/app run
 ## Authors
 
 * __Shaun__ Email : <DrShaun@gmail.com>
-* __Rodney__ Email : 
+* __Rodney__ Email : <rodney002mwanje@gmail.com> 
 * __Beldine__ Email : <beldinemoturi@gmail.com>
